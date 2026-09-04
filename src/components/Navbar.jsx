@@ -1,101 +1,161 @@
-﻿import React, { useState, useEffect } from 'react';
-import { Code2, Sun, Moon, Sparkles, Menu, X, Terminal, ArrowUpRight } from 'lucide-react';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-export default function Navbar({ currentTheme, setTheme }) {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const toggleTheme = () => {
-    const themes = ['default', 'cyberpunk', 'emerald'];
-    const nextIndex = (themes.indexOf(currentTheme) + 1) % themes.length;
-    setTheme(themes[nextIndex]);
-  };
-
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Interactive Lab', href: '#lab' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
-  ];
+export default function Navbar() {
+  const { pathname } = useLocation();
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container nav-container">
-        <a href="#" className="nav-logo">
-          <div className="logo-icon">
-            <Code2 size={22} className="logo-svg" />
-          </div>
-          <span className="logo-text">
-            Alex<span className="gradient-text">Rivera</span>
-          </span>
-        </a>
-
-        {/* Desktop Links */}
-        <div className="nav-links desktop-only">
-          {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="nav-item">
-              {link.name}
-            </a>
-          ))}
-        </div>
-
-        {/* Action Controls */}
-        <div className="nav-actions">
-          <button 
-            onClick={toggleTheme} 
-            className="theme-toggle-btn"
-            title={`Current Theme: ${currentTheme}. Click to change.`}
-          >
-            <Sparkles size={18} />
-            <span className="theme-name desktop-only">{currentTheme.toUpperCase()}</span>
-          </button>
-
-          <a href="#contact" className="btn btn-primary btn-sm desktop-only">
-            Hire Me <ArrowUpRight size={16} />
-          </a>
-
-          {/* Mobile Menu Toggle */}
-          <button 
-            className="mobile-toggle-btn mobile-only" 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+    <div className="w-full">
+      {/* 1. Olive Green Top Bar */}
+      <div style={{
+        backgroundColor: '#788554',
+        color: '#ffffff',
+        textAlign: 'center',
+        padding: '7px 16px',
+        fontSize: '0.85rem',
+        fontFamily: "'Cormorant Garamond', Georgia, serif",
+        fontStyle: 'italic',
+        letterSpacing: '0.04em',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px'
+      }}>
+        <span>Accepting Selected Projects & Collaborations for 2026</span>
+        <span style={{ fontSize: '0.7rem' }}>✦</span>
+        <span>Open for Full-time & Studio Inquiries</span>
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="mobile-drawer">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="mobile-nav-item"
-              onClick={() => setMobileMenuOpen(false)}
+      {/* 2. Main Navigation Bar */}
+      <header style={{
+        backgroundColor: '#faedf2',
+        borderBottom: '1px solid rgba(52, 33, 26, 0.1)',
+        padding: '14px 28px',
+        position: 'sticky',
+        top: 0,
+        zIndex: 50
+      }}>
+        <div style={{
+          maxWidth: '1280px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '20px'
+        }}>
+          {/* Left Links */}
+          <nav style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '24px',
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: '1.15rem'
+          }}>
+            <Link
+              to="/work"
+              style={{
+                color: pathname === '/work' ? '#788554' : '#34211a',
+                textDecoration: 'none',
+                fontWeight: 600,
+                transition: 'color 0.2s'
+              }}
             >
-              {link.name}
+              Our Work
+            </Link>
+            <Link
+              to="/about"
+              style={{
+                color: pathname === '/about' ? '#788554' : '#34211a',
+                textDecoration: 'none',
+                fontWeight: 600,
+                transition: 'color 0.2s'
+              }}
+            >
+              For Creators
+            </Link>
+            <a
+              href="#skills"
+              style={{
+                color: '#34211a',
+                textDecoration: 'none',
+                fontWeight: 600,
+                transition: 'color 0.2s'
+              }}
+            >
+              For Brands
             </a>
-          ))}
-          <a 
-            href="#contact" 
-            className="btn btn-primary"
-            onClick={() => setMobileMenuOpen(false)}
+          </nav>
+
+          {/* Center Brand Logo */}
+          <Link
+            to="/"
+            style={{
+              textDecoration: 'none',
+              color: '#34211a',
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '6px'
+            }}
           >
-            Hire Me <ArrowUpRight size={16} />
-          </a>
+            <span style={{
+              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontSize: '2rem',
+              fontWeight: 700,
+              letterSpacing: '-0.02em'
+            }}>
+              jennifer
+            </span>
+            <span style={{
+              fontFamily: "'Pinyon Script', cursive",
+              fontSize: '2.5rem',
+              color: '#34211a',
+              transform: 'translateY(2px)'
+            }}>
+              social
+            </span>
+          </Link>
+
+          {/* Right Links & Inquire Button */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '24px',
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: '1.15rem'
+          }}>
+            <Link
+              to="/about"
+              style={{
+                color: pathname === '/about' ? '#788554' : '#34211a',
+                textDecoration: 'none',
+                fontWeight: 600
+              }}
+            >
+              About
+            </Link>
+            <a
+              href="#lab"
+              style={{
+                color: '#34211a',
+                textDecoration: 'none',
+                fontWeight: 600
+              }}
+            >
+              Academy
+            </a>
+            <Link
+              to="/contact"
+              className="dashed-pill-btn"
+              style={{
+                padding: '4px 18px',
+                fontSize: '1.05rem'
+              }}
+            >
+              Inquire
+            </Link>
+          </div>
         </div>
-      )}
-    </nav>
+      </header>
+    </div>
   );
 }

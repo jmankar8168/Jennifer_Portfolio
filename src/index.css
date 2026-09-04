@@ -1,1 +1,88 @@
-﻿@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Pinyon+Script&family=Caveat:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --olive: #788554;
+  --olive-dark: #5e6b3e;
+  --cream: #faf7f2;
+  --cream-alt: #f4efe6;
+  --blush: #faedf2;
+  --blush-dark: #f3dbe5;
+  --chocolate: #34211a;
+  --chocolate-deep: #251611;
+  --chocolate-light: #52382f;
+  --ticker-blue: #dce7eb;
+  --cherry-red: #c92a2a;
+  --soft-blue: #e0ecf2;
+  
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-script: 'Pinyon Script', cursive;
+  --font-hand: 'Caveat', cursive;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--blush);
+  color: var(--chocolate);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Polka dot pattern utility */
+.polka-dot-bg {
+  background-color: var(--cream);
+  background-image: radial-gradient(#111111 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* Elegant custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--blush);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--chocolate-light);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--chocolate);
+}
+
+/* Dashed pill button style */
+.dashed-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.6rem;
+  border-radius: 9999px;
+  border: 1.5px dashed var(--chocolate);
+  background: transparent;
+  color: var(--chocolate);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dashed-pill-btn:hover {
+  background: var(--chocolate);
+  color: #ffffff;
+  border-style: solid;
+}

@@ -1,5 +1,6 @@
-﻿import React from 'react';
-import { ArrowUp, Code2, Heart } from 'lucide-react';
+import React from 'react';
+import { ArrowUp, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -8,36 +9,29 @@ export default function Footer() {
 
   return (
     <footer className="footer-section">
-      <div className="container footer-container">
+      <div className="container">
         <div className="footer-top">
-          <div className="footer-brand">
-            <div className="logo-icon">
-              <Code2 size={20} />
-            </div>
-            <span className="logo-text">
-              Alex<span className="gradient-text">Rivera</span>
-            </span>
-          </div>
+          <Link to="/" className="footer-brand-title">
+            Jenni<span style={{ color: '#ffe033' }}>.</span>
+          </Link>
 
           <div className="footer-links">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#lab">Interactive Lab</a>
-            <a href="#experience">Experience</a>
-            <a href="#contact">Contact</a>
+            <Link to="/" className="footer-link">Home</Link>
+            <Link to="/about" className="footer-link">About</Link>
+            <Link to="/work" className="footer-link">Work</Link>
+            <Link to="/contact" className="footer-link">Contact</Link>
+            <a href="https://github.com/jmankar8168" target="_blank" rel="noreferrer" className="footer-link">
+              GitHub ↗
+            </a>
           </div>
 
-          <button onClick={scrollToTop} className="scroll-top-btn" title="Scroll to top">
-            <ArrowUp size={18} />
+          <button onClick={scrollToTop} className="scroll-top-btn" title="Back to top">
+            <ArrowUp size={20} />
           </button>
         </div>
 
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Alex Rivera. Engineered with Vite + React & Vanilla CSS.</p>
-          <p className="built-with">
-            Designed for high performance & sleek user experience.
-          </p>
+          <p>© {new Date().getFullYear()} Jennifer. Built with React & Vite. Made with <Heart size={14} style={{ display: 'inline', color: '#ff2d78', verticalAlign: 'middle' }} />.</p>
         </div>
       </div>
     </footer>

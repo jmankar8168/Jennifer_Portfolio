@@ -1,13 +1,9 @@
-﻿import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import InteractiveLab from './components/InteractiveLab';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Work from './pages/Work';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import './App.css';
 
 export default function App() {
@@ -18,18 +14,13 @@ export default function App() {
   }, [theme]);
 
   return (
-    <div className="app-root">
-      <Navbar currentTheme={theme} setTheme={setTheme} />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <InteractiveLab />
-        <Experience />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home theme={theme} setTheme={setTheme} />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
