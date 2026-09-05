@@ -19,7 +19,7 @@ export default function ContactPage() {
           color: '#52382f',
           marginBottom: '4px'
         }}>
-          get in touch with us
+          get in touch with me
         </p>
         <h1 style={{
           fontFamily: "'Cormorant Garamond', Georgia, serif",

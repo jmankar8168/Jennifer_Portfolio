@@ -98,7 +98,7 @@ export default function GiantFooter() {
           color: '#6e554b',
           fontFamily: "'Plus Jakarta Sans', sans-serif"
         }}>
-          © {new Date().getFullYear()} Jennifer Studio. Website Design inspired by ATNN Design. All rights reserved.
+          © {new Date().getFullYear()} Jennifer. Personal portfolio & creative design by Jenni. All rights reserved.
         </div>
       </div>
     </footer>

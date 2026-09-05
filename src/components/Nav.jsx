@@ -6,7 +6,7 @@ export default function Nav() {
 
   const announcements = [
     "Accepting Selected Projects & Collaborations for 2026",
-    "Open for Full-time, Contract & Studio Inquiries",
+    "Open for Full-time, Freelance & Contract Inquiries",
     "New Case Studies & Interactive Labs Live in Portfolio"
   ];
 
@@ -34,7 +34,7 @@ export default function Nav() {
       backgroundColor: '#faedf2',
       boxShadow: '0 2px 12px rgba(52, 33, 26, 0.05)'
     }}>
-      {/* 1. Olive Moss Green Top Announcement Bar with < Announcement > controls */}
+      {/* Olive Top Announcement Bar */}
       <div style={{
         backgroundColor: '#788554',
         borderBottom: '1px solid #5e6b3e',
@@ -51,54 +51,28 @@ export default function Nav() {
       }}>
         <button
           onClick={prevAnnouncement}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: '#ffffff',
-            cursor: 'pointer',
-            fontSize: '1rem',
-            padding: '0 6px',
-            opacity: 0.8,
-            display: 'flex',
-            alignItems: 'center',
-            transition: 'opacity 0.2s',
-            fontFamily: 'serif'
-          }}
+          style={{ background: 'none', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '1rem', padding: '0 6px', opacity: 0.8, fontFamily: 'serif' }}
           aria-label="Previous announcement"
           onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.8')}
         >
-          ‹
+          {String.fromCharCode(0x2039)}
         </button>
-
         <span style={{ textAlign: 'center', userSelect: 'none' }}>
           {announcements[announcementIndex]}
         </span>
-
         <button
           onClick={nextAnnouncement}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: '#ffffff',
-            cursor: 'pointer',
-            fontSize: '1rem',
-            padding: '0 6px',
-            opacity: 0.8,
-            display: 'flex',
-            alignItems: 'center',
-            transition: 'opacity 0.2s',
-            fontFamily: 'serif'
-          }}
+          style={{ background: 'none', border: 'none', color: '#ffffff', cursor: 'pointer', fontSize: '1rem', padding: '0 6px', opacity: 0.8, fontFamily: 'serif' }}
           aria-label="Next announcement"
           onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.8')}
         >
-          ›
+          {String.fromCharCode(0x203A)}
         </button>
       </div>
 
-      {/* 2. Main Soft Blush Pink & Chocolate Navigation Bar */}
+      {/* Main Nav Bar */}
       <nav style={{
         backgroundColor: '#faedf2',
         borderBottom: '1px solid rgba(52, 33, 26, 0.12)',
@@ -110,49 +84,29 @@ export default function Nav() {
         justifyContent: 'space-between',
         gap: '24px'
       }}>
-        {/* Left: Editorial Brand Logo in Rich Chocolate Brown */}
-        <Link
-          to="/"
-          style={{
-            textDecoration: 'none',
-            color: '#34211a',
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '6px'
-          }}
-        >
-          <span style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: '2rem',
-            fontWeight: 700,
-            letterSpacing: '-0.02em',
-            color: '#34211a'
-          }}>
-            jennifer
-          </span>
+        {/* Logo: jenni + olive star */}
+        <Link to="/" style={{ textDecoration: 'none', color: '#34211a', display: 'flex', alignItems: 'baseline', gap: '2px' }}>
           <span style={{
             fontFamily: "'Pinyon Script', cursive",
-            fontSize: '2.5rem',
-            color: '#34211a',
-            transform: 'translateY(2px)'
+            fontSize: '2.6rem',
+            fontWeight: 400,
+            letterSpacing: '0',
+            color: '#34211a'
           }}>
-            social
+            jenni
           </span>
           <span style={{
             fontSize: '0.8rem',
             color: '#788554',
-            transform: 'translateY(-12px)'
+            transform: 'translateY(-12px)',
+            display: 'inline-block'
           }}>
             ✦
           </span>
         </Link>
 
-        {/* Center: 4 NavLinks (Home, Work, About, Contact) in Chocolate & Olive */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '36px'
-        }}>
+        {/* Nav Links */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '36px' }}>
           {navItems.map((item) => (
             <NavLink
               key={item.name}
@@ -191,17 +145,12 @@ export default function Nav() {
           ))}
         </div>
 
-        {/* Right: Olive Moss Green Pill Button & Inquire Option */}
+        {/* Right CTA Buttons */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Link
             to="/contact"
             className="dashed-pill-btn"
-            style={{
-              padding: '5px 18px',
-              fontSize: '1.05rem',
-              color: '#34211a',
-              borderColor: '#34211a'
-            }}
+            style={{ padding: '5px 18px', fontSize: '1.05rem', color: '#34211a', borderColor: '#34211a' }}
           >
             Inquire
           </Link>
@@ -232,7 +181,7 @@ export default function Nav() {
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            Work with Us
+            Work with Me
           </Link>
         </div>
       </nav>

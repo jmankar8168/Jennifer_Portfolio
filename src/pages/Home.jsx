@@ -3,6 +3,10 @@ import Nav from '../components/Nav';
 import Hero from '../components/Hero';
 import MarqueeTicker from '../components/MarqueeTicker';
 import EspressoSection from '../components/EspressoSection';
+import PolaroidCollage from '../components/PolaroidCollage';
+import ProcessAccordion from '../components/ProcessAccordion';
+import StatsSection from '../components/StatsSection';
+import TestimonialCarousel from '../components/TestimonialCarousel';
 import About from '../components/About';
 import Skills from '../components/Skills';
 import Projects from '../components/Projects';
@@ -18,6 +22,13 @@ export default function Home() {
         <Hero />
         <MarqueeTicker />
         <EspressoSection />
+        
+        {/* New components added from reference inspiration */}
+        <PolaroidCollage />
+        <ProcessAccordion />
+        <StatsSection />
+        <TestimonialCarousel />
+
         <About />
         <Skills />
         <Projects />

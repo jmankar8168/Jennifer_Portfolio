@@ -17,7 +17,7 @@ export default function EspressoSection() {
       caption: 'xoxo, Jennifer',
       rotate: '1deg',
       bg: '#faf7f2',
-      title: 'Studio Moodboard'
+      title: 'Creative Moodboard'
     },
     {
       id: 3,

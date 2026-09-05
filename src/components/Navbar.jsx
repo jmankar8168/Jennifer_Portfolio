@@ -23,7 +23,7 @@ export default function Navbar() {
       }}>
         <span>Accepting Selected Projects & Collaborations for 2026</span>
         <span style={{ fontSize: '0.7rem' }}>✦</span>
-        <span>Open for Full-time & Studio Inquiries</span>
+        <span>Open for Full-time, Freelance & Contract Inquiries</span>
       </div>
 
       {/* 2. Main Navigation Bar */}
@@ -60,7 +60,7 @@ export default function Navbar() {
                 transition: 'color 0.2s'
               }}
             >
-              Our Work
+              My Work
             </Link>
             <Link
               to="/about"

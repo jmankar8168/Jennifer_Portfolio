@@ -36,10 +36,10 @@ export default function Hero() {
           textTransform: 'uppercase',
           marginBottom: '22px'
         }}>
-          (CREATIVE UI/UX & FRONTEND ENGINEERING STUDIO)
+          (CREATIVE UI/UX DESIGNER &amp; FRONTEND ENGINEER)
         </span>
 
-        {/* Speech Bubble with Heart Decoration */}
+        {/* Speech Bubble */}
         <div style={{
           position: 'absolute',
           top: '20px',
@@ -53,7 +53,7 @@ export default function Hero() {
           justifyContent: 'center',
           transform: 'rotate(6deg)'
         }}>
-          <span style={{ color: '#ffffff', fontSize: '1rem' }}>🤍</span>
+          <span style={{ color: '#ffffff', fontSize: '1rem' }}>{String.fromCodePoint(0x1F90D)}</span>
         </div>
 
         {/* Main Editorial Headline */}
@@ -70,18 +70,13 @@ export default function Hero() {
             Brands
           </span>{' '}
           <span style={{ fontFamily: "'Pinyon Script', cursive", fontSize: '1.4em', fontWeight: 400 }}>
-            &
+            &amp;
           </span>{' '}
           <span style={{ fontFamily: "'Pinyon Script', cursive", fontSize: '1.35em', fontWeight: 400 }}>
             Creators
           </span>{' '}
           Who Want Clarity and Content that{' '}
-          <span style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            verticalAlign: 'baseline'
-          }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', verticalAlign: 'baseline' }}>
             <span style={{
               display: 'inline-block',
               fontSize: '0.75rem',
@@ -100,30 +95,21 @@ export default function Hero() {
             <span style={{ fontFamily: "'Pinyon Script', cursive", fontSize: '1.35em', fontWeight: 400 }}>
               Performs
             </span>
-            <span style={{ color: '#c92a2a', fontSize: '1.8rem', verticalAlign: 'middle' }}>♥</span>
-            <span style={{
-              fontSize: '1.4rem',
-              display: 'inline-block',
-              transform: 'rotate(-45deg)',
-              color: '#34211a'
-            }}>
-              ➔
+            <span style={{ color: '#c92a2a', fontSize: '1.8rem', verticalAlign: 'middle' }}>{String.fromCharCode(0x2665)}</span>
+            <span style={{ fontSize: '1.4rem', display: 'inline-block', transform: 'rotate(-45deg)', color: '#34211a' }}>
+              {String.fromCharCode(0x2794)}
             </span>
           </span>
         </h1>
 
-        {/* Action Button: Dashed Pill */}
+        {/* CTA Buttons */}
         <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '16px' }}>
           <Link
             to="/contact"
             className="dashed-pill-btn"
-            style={{
-              padding: '8px 30px',
-              fontSize: '1.3rem',
-              boxShadow: '0 2px 10px rgba(0,0,0,0.04)'
-            }}
+            style={{ padding: '8px 30px', fontSize: '1.3rem', boxShadow: '0 2px 10px rgba(0,0,0,0.04)' }}
           >
-            Work with Us
+            Work with Me
           </Link>
           <Link
             to="/work"
