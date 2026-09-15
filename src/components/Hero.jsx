@@ -1,134 +1,87 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowUpRight, Sparkles, Heart } from 'lucide-react';
+import characterImg from '../assets/jenni_character.jpg';
 
 export default function Hero() {
   return (
-    <section className="polka-dot-bg" style={{
-      padding: '80px 24px 90px',
-      position: 'relative',
-      borderBottom: '1px solid rgba(52, 33, 26, 0.15)',
-      overflow: 'hidden'
-    }}>
-      <div style={{
-        maxWidth: '900px',
-        margin: '0 auto',
-        textAlign: 'center',
-        position: 'relative'
-      }}>
-        {/* Handwriting Sub-label */}
-        <p style={{
-          fontFamily: "'Caveat', cursive",
-          fontSize: '1.65rem',
-          color: '#52382f',
-          marginBottom: '6px',
-          letterSpacing: '0.02em'
-        }}>
-          for creators + brands
-        </p>
+    <section className="editorial-hero-section">
+      <div className="hero-grid-pattern-bg"></div>
 
-        {/* Small uppercase tag */}
-        <span style={{
-          display: 'inline-block',
-          fontSize: '0.78rem',
-          letterSpacing: '0.12em',
-          fontWeight: 700,
-          color: '#6e554b',
-          textTransform: 'uppercase',
-          marginBottom: '22px'
-        }}>
-          (CREATIVE UI/UX DESIGNER &amp; FRONTEND ENGINEER)
-        </span>
+      <div className="hero-content-wrapper">
+        {/* Left Column: Oversized Editorial Copy & CTAs */}
+        <div className="hero-text-col">
+          <div className="hero-tag-pill">
+            <span className="hero-tag-text">(CREATIVE UI/UX DESIGNER & FRONTEND ENGINEER)</span>
+          </div>
 
-        {/* Speech Bubble */}
-        <div style={{
-          position: 'absolute',
-          top: '20px',
-          right: '8%',
-          backgroundColor: '#fad2e1',
-          padding: '6px 10px',
-          borderRadius: '12px 12px 12px 2px',
-          boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transform: 'rotate(6deg)'
-        }}>
-          <span style={{ color: '#ffffff', fontSize: '1rem' }}>{String.fromCodePoint(0x1F90D)}</span>
+          <h1 className="hero-headline">
+            <span className="headline-line-1">
+              For <span className="font-serif italic">Brands</span> &{' '}
+              <span className="font-script">Creators</span>
+            </span>
+            <span className="headline-line-2">Who Want Clarity</span>
+            <span className="headline-line-3">
+              and <span className="font-serif italic font-normal">Content</span> that
+            </span>
+            <span className="headline-line-4">
+              <span className="font-sans font-bold">Performs</span>
+              <span className="headline-dot">.</span>
+            </span>
+          </h1>
+
+          <p className="hero-description">
+            Your go-to product designer & frontend architect for high-conversion web apps,
+            meticulous design systems, and delightful digital experiences where clarity meets personality.
+          </p>
+
+          {/* Dual CTAs */}
+          <div className="hero-cta-group">
+            <Link to="/contact" className="hero-primary-btn">
+              <span>Work with Me</span>
+              <ArrowUpRight size={16} />
+            </Link>
+            <Link to="/work" className="hero-secondary-btn">
+              <span>View Portfolio</span>
+            </Link>
+          </div>
+
+          <div className="hero-meta-row">
+            <span className="meta-pill">✦ 100% Custom Architecture</span>
+            <span className="meta-pill">✦ React & Figma Tokens</span>
+            <span className="meta-pill">✦ Available for 2026</span>
+          </div>
         </div>
 
-        {/* Main Editorial Headline */}
-        <h1 style={{
-          fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: 'clamp(2.8rem, 6vw, 4.8rem)',
-          lineHeight: 1.15,
-          color: '#34211a',
-          fontWeight: 500,
-          marginBottom: '32px'
-        }}>
-          For{' '}
-          <span style={{ fontFamily: "'Pinyon Script', cursive", fontSize: '1.35em', fontWeight: 400 }}>
-            Brands
-          </span>{' '}
-          <span style={{ fontFamily: "'Pinyon Script', cursive", fontSize: '1.4em', fontWeight: 400 }}>
-            &amp;
-          </span>{' '}
-          <span style={{ fontFamily: "'Pinyon Script', cursive", fontSize: '1.35em', fontWeight: 400 }}>
-            Creators
-          </span>{' '}
-          Who Want Clarity and Content that{' '}
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', verticalAlign: 'baseline' }}>
-            <span style={{
-              display: 'inline-block',
-              fontSize: '0.75rem',
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              backgroundColor: '#e0ecf2',
-              color: '#365364',
-              padding: '4px 14px',
-              borderRadius: '9999px',
-              fontWeight: 600,
-              letterSpacing: '0.04em',
-              verticalAlign: 'middle',
-              transform: 'translateY(-6px)'
-            }}>
-              creative-led
-            </span>
-            <span style={{ fontFamily: "'Pinyon Script', cursive", fontSize: '1.35em', fontWeight: 400 }}>
-              Performs
-            </span>
-            <span style={{ color: '#c92a2a', fontSize: '1.8rem', verticalAlign: 'middle' }}>{String.fromCharCode(0x2665)}</span>
-            <span style={{ fontSize: '1.4rem', display: 'inline-block', transform: 'rotate(-45deg)', color: '#34211a' }}>
-              {String.fromCharCode(0x2794)}
-            </span>
-          </span>
-        </h1>
+        {/* Right Column: Editorial Visual Showcase with Character & Stickers */}
+        <div className="hero-visual-col">
+          <div className="hero-card-frame">
+            <div className="card-top-tape"></div>
 
-        {/* CTA Buttons */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '16px' }}>
-          <Link
-            to="/contact"
-            className="dashed-pill-btn"
-            style={{ padding: '8px 30px', fontSize: '1.3rem', boxShadow: '0 2px 10px rgba(0,0,0,0.04)' }}
-          >
-            Work with Me
-          </Link>
-          <Link
-            to="/work"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              padding: '8px 26px',
-              borderRadius: '9999px',
-              backgroundColor: '#788554',
-              color: '#ffffff',
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
-              fontSize: '1.2rem',
-              fontStyle: 'italic',
-              textDecoration: 'none',
-              transition: 'background 0.2s'
-            }}
-          >
-            View Portfolio
-          </Link>
+            <div className="hero-image-container">
+              <img
+                src={characterImg}
+                alt="Jennifer - Creative UI/UX Designer & Frontend Engineer"
+                className="hero-character-img"
+              />
+              <div className="hero-image-gradient-overlay"></div>
+            </div>
+
+            {/* Floating Stamp Badges */}
+            <div className="floating-badge badge-top-right">
+              <span className="badge-script">catch me if</span>
+              <span className="badge-script-bold">you can! ✧</span>
+            </div>
+
+            <div className="floating-badge badge-bottom-left">
+              <span className="badge-tag">UI/UX · 2026</span>
+              <span className="badge-title">Interactive Arts</span>
+            </div>
+
+            <div className="floating-doodle doodle-star-1">✧</div>
+            <div className="floating-doodle doodle-star-2">✦</div>
+            <div className="floating-doodle doodle-star-3">✿</div>
+          </div>
         </div>
       </div>
     </section>
