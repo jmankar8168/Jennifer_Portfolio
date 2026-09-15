@@ -12,6 +12,7 @@ import FooterBanner from '../components/FooterBanner';
 import CVModal from '../components/CVModal';
 
 export default function Home() {
+  const [introPhase, setIntroPhase] = useState('enter'); // 'enter' | 'hold' | 'exit' | 'done'
   const [introComplete, setIntroComplete] = useState(false);
   const [isCVOpen, setIsCVOpen] = useState(false);
 
@@ -22,16 +23,20 @@ export default function Home() {
 
   return (
     <div className="jenni-universe">
-      {/* ── Cinematic intro overlay — sits on top, animates away ── */}
-      {!introComplete && (
-        <HeroIntro onComplete={() => setIntroComplete(true)} />
-      )}
-
-      {/* ── Existing site — always mounted underneath ── */}
+      {/* ── Single Persistent Unified Header (stretches and transitions seamlessly) ── */}
       <Header
+        introPhase={introPhase}
         onOpenCV={() => setIsCVOpen(true)}
         onOpenContact={scrollToContact}
       />
+
+      {/* ── Cinematic intro overlay (background & giant title) ── */}
+      {!introComplete && (
+        <HeroIntro
+          onPhaseChange={(phase) => setIntroPhase(phase)}
+          onComplete={() => setIntroComplete(true)}
+        />
+      )}
 
       <FloatingProfile onMessageClick={scrollToContact} />
 

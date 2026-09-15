@@ -3,31 +3,19 @@ import React, { useEffect, useRef, useState } from 'react';
 /**
  * HeroIntro — cinematic opening overlay.
  * Phases: 'enter' (0-3s) | 'hold' (3-4.4s) | 'exit' (4.4-7s) | 'done'
- *
- * Scroll behaviour
- * ────────────────
- * • On mount  : disables browser scroll-restoration, forces scrollY=0,
- *               locks body scroll (overflow:hidden) so underlying page
- *               cannot drift while the intro plays.
- * • On unmount: restores overflow, fires one final instant scrollTo(0,0)
- *               so the page is always at the top when the overlay leaves.
  */
-export default function HeroIntro({ onComplete }) {
+export default function HeroIntro({ onComplete, onPhaseChange }) {
   const overlayRef = useRef(null);
   const orbRef     = useRef(null);
   const mousePos   = useRef({ x: 0, y: 0 });
   const orbFrame   = useRef(null);
   const [phase, setPhase] = useState('enter');
 
-  // ── lock/unlock body scroll ──────────────────────────────────────
   const lockScroll = () => {
-    // Kill browser scroll-restoration so it can't override us
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    // Force page to absolute top — instant, no animation
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    // Prevent the underlying document from scrolling
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
@@ -37,18 +25,15 @@ export default function HeroIntro({ onComplete }) {
   };
 
   const unlockScroll = () => {
-    // Remove the fixed-position lock
     document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.left = '';
     document.body.style.width = '';
-    // Final authoritative scroll-to-top (instant, no visible jump)
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   };
 
-  // ── smooth-follow cursor orb (rAF loop) ──────────────────────────
   const animateOrb = () => {
     const orb = orbRef.current;
     if (!orb) return;
@@ -67,49 +52,51 @@ export default function HeroIntro({ onComplete }) {
     mousePos.current = { x: e.clientX, y: e.clientY };
   };
 
-  // ── orchestrate timeline ─────────────────────────────────────────
   useEffect(() => {
-    // 1. Immediately lock scroll before anything renders
     lockScroll();
 
-    // respect prefers-reduced-motion
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) {
       setTimeout(() => {
         unlockScroll();
+        if (onPhaseChange) onPhaseChange('done');
         if (onComplete) onComplete();
       }, 300);
       return () => unlockScroll();
     }
 
-    // seed orb at viewport centre
     mousePos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     if (orbRef.current) {
       orbRef.current.dataset.tx = window.innerWidth  / 2;
       orbRef.current.dataset.ty = window.innerHeight / 2;
     }
 
-    const t1 = setTimeout(() => setPhase('hold'), 3000);
-    const t2 = setTimeout(() => setPhase('exit'), 4400);
+    const t1 = setTimeout(() => {
+      setPhase('hold');
+      if (onPhaseChange) onPhaseChange('hold');
+    }, 3000);
+
+    const t2 = setTimeout(() => {
+      setPhase('exit');
+      if (onPhaseChange) onPhaseChange('exit');
+    }, 4400);
+
     const t3 = setTimeout(() => {
-      // Unlock scroll BEFORE unmounting so there is no re-paint flash
       unlockScroll();
       setPhase('done');
+      if (onPhaseChange) onPhaseChange('done');
       if (onComplete) onComplete();
     }, 7000);
 
     orbFrame.current = requestAnimationFrame(animateOrb);
 
-    // safety cleanup
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
       if (orbFrame.current) cancelAnimationFrame(orbFrame.current);
-      // If component unmounts early (e.g. HMR) always restore scroll
       unlockScroll();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (phase === 'done') return null;
@@ -183,17 +170,6 @@ export default function HeroIntro({ onComplete }) {
           />
         </svg>
       </div>
-
-      {/* minimal nav */}
-      <nav className="hi-nav">
-        <span className={`hi-nav-logo hi-logo-${phase}`}>jenni.</span>
-        <div className="hi-nav-links">
-          <a href="/" className="hi-nav-link">HOME</a>
-          <a href="/work" className="hi-nav-link">WORK</a>
-          <a href="/about" className="hi-nav-link">ABOUT</a>
-          <a href="/contact" className="hi-nav-link">CONTACT</a>
-        </div>
-      </nav>
 
       {/* giant title */}
       <div className={`hi-title-wrap hi-title-${phase}`}>
