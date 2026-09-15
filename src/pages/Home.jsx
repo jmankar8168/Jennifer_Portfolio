@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import JenniHeroSection from '../components/JenniHeroSection';
+import React, { useState } from 'react';
+import HeroIntro from '../components/HeroIntro';
 import Header from '../components/Header';
 import HeroScene from '../components/HeroScene';
 import AboutSection from '../components/AboutSection';
@@ -11,7 +11,8 @@ import FooterBanner from '../components/FooterBanner';
 import CVModal from '../components/CVModal';
 
 export default function Home() {
-  const [navState, setNavState] = useState('hero'); // 'hero' | 'site'
+  const [introPhase, setIntroPhase] = useState('enter');
+  const [introComplete, setIntroComplete] = useState(false);
   const [isCVOpen, setIsCVOpen] = useState(false);
 
   const scrollToContact = () => {
@@ -19,52 +20,30 @@ export default function Home() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const heroEl = document.getElementById('hero');
-      const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
-      if (window.scrollY > heroHeight * 0.6) {
-        setNavState('site');
-      } else {
-        setNavState('hero');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="jenni-universe">
-      {/* ── Single Persistent Unified Header (Fixed Top) ── */}
+      {/* ── Single Persistent Unified Header ── */}
       <Header
-        introPhase={navState === 'hero' ? 'enter' : 'done'}
+        introPhase={introPhase}
         onOpenCV={() => setIsCVOpen(true)}
         onOpenContact={scrollToContact}
       />
 
+      {/* ── Cinematic Poster Overlay — slides off to reveal original site ── */}
+      {!introComplete && (
+        <HeroIntro
+          onPhaseChange={(phase) => setIntroPhase(phase)}
+          onComplete={() => setIntroComplete(true)}
+        />
+      )}
+
+      {/* ── Original Website Content (Mounted underneath) ── */}
       <main className="jenni-main-flow">
-        {/* ── SECTION 1: JENNI HERO SECTION (100vh, #0038ff bg) ── */}
-        <JenniHeroSection />
-
-        {/* ── SECTION 2: HERO SCENE / ROOM ── */}
         <HeroScene />
-
-        {/* ── SECTION 3: ABOUT ── */}
         <AboutSection />
-
-        {/* ── SECTION 4: WORKS (Interactive Typographic Index) ── */}
         <WorksSection />
-
-        {/* ── SECTION 5: PROCESS ── */}
         <ProcessSection />
-
-        {/* ── SECTION 6: PLAYGROUND ── */}
         <PlaygroundCanvas />
-
-        {/* ── SECTION 7: CONTACT ── */}
         <ContactSection onOpenCV={() => setIsCVOpen(true)} />
       </main>
 

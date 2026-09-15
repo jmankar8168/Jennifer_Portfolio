@@ -2143,3 +2143,48 @@ body {
   z-index: 10;
   pointer-events: none;
 }
+
+
+/* ==========================================================================
+   CINEMATIC POSTER OVERLAY & PHYSICAL SLIDE EXIT
+   ========================================================================== */
+
+.hi-poster-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0038ff; /* Electric Blue Poster Canvas */
+  z-index: 99990;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  will-change: transform, opacity;
+  box-shadow: -10px 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* 4.0s - 5.5s Physical Poster Slide Exit to Bottom-Left */
+.hi-phase-exit,
+.hi-phase-settle,
+.hi-phase-reveal {
+  animation: hiPosterSlideExit 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+@keyframes hiPosterSlideExit {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  70% {
+    transform: translate3d(-100vw, 70vh, 0) rotate(-12deg);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate3d(-140vw, 100vh, 0) rotate(-18deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+}

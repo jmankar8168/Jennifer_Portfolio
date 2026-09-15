@@ -1,101 +1,75 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 /**
- * HeroIntro — cinematic opening overlay.
- * Phases: 'enter' (0-3s) | 'hold' (3-4.4s) | 'exit' (4.4-7s) | 'done'
+ * HeroIntro — cinematic opening poster overlay.
+ * Timeline Choreography:
+ * • 0.0s – 3.0s: 'enter' (blue bg + giant yellow starburst + white jenni. wordmark)
+ * • 3.0s – 4.0s: 'hold'  (poster holds, cursor subtle tracking)
+ * • 4.0s – 5.5s: 'exit'  (poster physically slides away toward bottom-left, starburst crops on edges)
+ * • 5.5s – 7.5s: 'settle' (quiet pause, original site bg & header exposed)
+ * • 7.5s – 12.0s: 'reveal' (original site hero scene content organically enters)
+ * • 13.0s+:      'done'   (overlay unmounts, 100% interactive)
  */
 export default function HeroIntro({ onComplete, onPhaseChange }) {
   const overlayRef = useRef(null);
-  const orbRef     = useRef(null);
-  const mousePos   = useRef({ x: 0, y: 0 });
-  const orbFrame   = useRef(null);
   const [phase, setPhase] = useState('enter');
 
-  const lockScroll = () => {
+  const forceTopScroll = () => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = '0px';
-    document.body.style.left = '0px';
-    document.body.style.width = '100%';
-  };
-
-  const unlockScroll = () => {
-    document.documentElement.style.overflow = '';
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.width = '';
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  };
-
-  const animateOrb = () => {
-    const orb = orbRef.current;
-    if (!orb) return;
-    const tx = parseFloat(orb.dataset.tx) || window.innerWidth  / 2;
-    const ty = parseFloat(orb.dataset.ty) || window.innerHeight / 2;
-    const nx = tx + (mousePos.current.x - tx) * 0.08;
-    const ny = ty + (mousePos.current.y - ty) * 0.08;
-    orb.dataset.tx = nx;
-    orb.dataset.ty = ny;
-    orb.style.left = nx + 'px';
-    orb.style.top  = ny + 'px';
-    orbFrame.current = requestAnimationFrame(animateOrb);
-  };
-
-  const handleMouseMove = (e) => {
-    mousePos.current = { x: e.clientX, y: e.clientY };
   };
 
   useEffect(() => {
-    lockScroll();
+    forceTopScroll();
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) {
       setTimeout(() => {
-        unlockScroll();
         if (onPhaseChange) onPhaseChange('done');
         if (onComplete) onComplete();
       }, 300);
-      return () => unlockScroll();
+      return;
     }
 
-    mousePos.current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    if (orbRef.current) {
-      orbRef.current.dataset.tx = window.innerWidth  / 2;
-      orbRef.current.dataset.ty = window.innerHeight / 2;
-    }
-
+    // 0.0s - 3.0s: Enter
     const t1 = setTimeout(() => {
       setPhase('hold');
       if (onPhaseChange) onPhaseChange('hold');
     }, 3000);
 
+    // 4.0s: Physical Poster Slide Exit
     const t2 = setTimeout(() => {
       setPhase('exit');
       if (onPhaseChange) onPhaseChange('exit');
-    }, 4400);
+    }, 4000);
 
+    // 5.5s: Settle period (Original site revealed)
     const t3 = setTimeout(() => {
-      unlockScroll();
+      setPhase('settle');
+      if (onPhaseChange) onPhaseChange('settle');
+    }, 5500);
+
+    // 7.5s: Reveal secondary content
+    const t4 = setTimeout(() => {
+      setPhase('reveal');
+      if (onPhaseChange) onPhaseChange('reveal');
+    }, 7500);
+
+    // 13.0s: Done & Unmount
+    const t5 = setTimeout(() => {
       setPhase('done');
       if (onPhaseChange) onPhaseChange('done');
       if (onComplete) onComplete();
-    }, 7000);
-
-    orbFrame.current = requestAnimationFrame(animateOrb);
+    }, 13000);
 
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
-      if (orbFrame.current) cancelAnimationFrame(orbFrame.current);
-      unlockScroll();
+      clearTimeout(t4);
+      clearTimeout(t5);
     };
   }, []);
 
@@ -104,14 +78,13 @@ export default function HeroIntro({ onComplete, onPhaseChange }) {
   return (
     <div
       ref={overlayRef}
-      className={`hi-overlay hi-phase-${phase}`}
-      onMouseMove={handleMouseMove}
+      className={`hi-poster-overlay hi-phase-${phase}`}
       aria-hidden="true"
     >
-      {/* faint grid lines matching original site bg */}
+      {/* Background grid lines */}
       <div className="hi-grid" />
 
-      {/* giant hand-drawn yellow starburst */}
+      {/* Giant hand-drawn yellow starburst artwork */}
       <div className={`hi-star-wrap hi-star-${phase}`}>
         <svg
           className="hi-star-svg"
@@ -171,15 +144,13 @@ export default function HeroIntro({ onComplete, onPhaseChange }) {
         </svg>
       </div>
 
-      {/* giant title */}
+      {/* Giant wordmark */}
       <div className={`hi-title-wrap hi-title-${phase}`}>
         <h1 className="hi-giant">jenni.</h1>
         <p className="hi-tagline">Product Designer &amp; Art Director</p>
       </div>
 
-      
-
-      {/* bottom strip */}
+      {/* Bottom strip */}
       <div className={`hi-bottom hi-bottom-${phase}`}>
         <span className="hi-scroll">scroll to explore &#8595;</span>
         <div className="hi-pills">
