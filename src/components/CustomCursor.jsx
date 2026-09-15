@@ -36,7 +36,6 @@ export default function CustomCursor() {
     document.addEventListener('mouseenter', handleMouseEnter);
 
     const animate = () => {
-      // Smooth lerp for outer ring
       ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
       ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
 
@@ -45,7 +44,6 @@ export default function CustomCursor() {
       }
 
       if (ringRef.current) {
-        // Extremely subtle scale increase on hover (1.15x max)
         const scale = isHovered ? 1.15 : 1.0;
         ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0px) translate(-50%, -50%) scale(${scale})`;
       }
@@ -67,7 +65,7 @@ export default function CustomCursor() {
 
   return (
     <div
-      className={`custom-cursor-container ${isVisible ? 'cursor-visible' : 'cursor-hidden'} ${isHovered ? 'cursor-hover' : ''}`}
+      className={`custom-cursor-root ${isVisible ? 'cursor-visible' : 'cursor-hidden'} ${isHovered ? 'cursor-hover' : ''}`}
       aria-hidden="true"
     >
       {/* Outer Ring */}

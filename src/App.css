@@ -1797,7 +1797,7 @@ body {
 
 
 /* ==========================================================================
-   GLOBAL CUSTOM CURSOR (CSS MIX-BLEND-MODE DIFFERENCE)
+   GLOBAL CUSTOM CURSOR (GPU MIX-BLEND-MODE DIFFERENCE)
    ========================================================================== */
 
 @media (pointer: fine) {
@@ -1806,23 +1806,23 @@ body {
   }
 }
 
-.custom-cursor-container {
+.custom-cursor-root {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 0;
+  height: 0;
   pointer-events: none;
   z-index: 9999999;
-  overflow: hidden;
+  mix-blend-mode: difference;
   transition: opacity 0.3s ease;
 }
 
-.custom-cursor-container.cursor-hidden {
+.custom-cursor-root.cursor-hidden {
   opacity: 0;
 }
 
-.custom-cursor-container.cursor-visible {
+.custom-cursor-root.cursor-visible {
   opacity: 1;
 }
 
@@ -1845,7 +1845,7 @@ body {
   fill: #ffffff;
 }
 
-/* Subtle, understated hover effect */
+/* Understated hover effect */
 .cursor-hover .custom-cursor-ring circle {
   stroke-width: 2.6;
 }
