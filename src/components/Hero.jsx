@@ -11,13 +11,13 @@ export default function Hero() {
       <div className="hero-content-wrapper">
         {/* Left Column: Oversized Editorial Copy & CTAs */}
         <div className="hero-text-col">
-          <div className="hero-tag-pill">
-            <span className="hero-tag-text">(CREATIVE UI/UX DESIGNER & FRONTEND ENGINEER)</span>
+          <div className="hero-location-pill">
+            <span className="hero-tag-text">(CREATIVE UI/UX DESIGNER &amp; FRONTEND ENGINEER)</span>
           </div>
 
           <h1 className="hero-headline">
             <span className="headline-line-1">
-              For <span className="font-serif italic">Brands</span> &{' '}
+              For <span className="font-serif italic font-normal">Brands</span> &amp;{' '}
               <span className="font-script">Creators</span>
             </span>
             <span className="headline-line-2">Who Want Clarity</span>
@@ -31,7 +31,7 @@ export default function Hero() {
           </h1>
 
           <p className="hero-description">
-            Your go-to product designer & frontend architect for high-conversion web apps,
+            Your go-to product designer &amp; frontend architect for high-conversion web apps,
             meticulous design systems, and delightful digital experiences where clarity meets personality.
           </p>
 
@@ -43,17 +43,18 @@ export default function Hero() {
             </Link>
             <Link to="/work" className="hero-secondary-btn">
               <span>View Portfolio</span>
+              <span className="btn-arrow">&#8594;</span>
             </Link>
           </div>
 
           <div className="hero-meta-row">
-            <span className="meta-pill">✦ 100% Custom Architecture</span>
-            <span className="meta-pill">✦ React & Figma Tokens</span>
-            <span className="meta-pill">✦ Available for 2026</span>
+            <span className="meta-pill">&#10022; 100% Custom Architecture</span>
+            <span className="meta-pill">&#10022; React &amp; Figma Tokens</span>
+            <span className="meta-pill">&#10022; Available for 2026</span>
           </div>
         </div>
 
-        {/* Right Column: Editorial Visual Showcase with Character & Stickers */}
+        {/* Right Column: Tactile Editorial Card with Tape & Badges */}
         <div className="hero-visual-col">
           <div className="hero-card-frame">
             <div className="card-top-tape"></div>
@@ -61,26 +62,31 @@ export default function Hero() {
             <div className="hero-image-container">
               <img
                 src={characterImg}
-                alt="Jennifer - Creative UI/UX Designer & Frontend Engineer"
+                alt="Jennifer - Creative UI/UX Designer &amp; Frontend Engineer"
                 className="hero-character-img"
               />
               <div className="hero-image-gradient-overlay"></div>
             </div>
 
-            {/* Floating Stamp Badges */}
+            {/* Floating Stamp Badges inspired by Reference */}
             <div className="floating-badge badge-top-right">
               <span className="badge-script">catch me if</span>
-              <span className="badge-script-bold">you can! ✧</span>
+              <span className="badge-script-bold">you can! &#10022;</span>
+            </div>
+
+            <div className="floating-badge badge-sticker-round">
+              <span className="sticker-curved-text">designed to delight!</span>
+              <span className="sticker-sparkle">&#10022;</span>
             </div>
 
             <div className="floating-badge badge-bottom-left">
-              <span className="badge-tag">UI/UX · 2026</span>
+              <span className="badge-tag">UI/UX &#8226; 2026</span>
               <span className="badge-title">Interactive Arts</span>
             </div>
 
-            <div className="floating-doodle doodle-star-1">✧</div>
-            <div className="floating-doodle doodle-star-2">✦</div>
-            <div className="floating-doodle doodle-star-3">✿</div>
+            <div className="floating-doodle doodle-star-1">&#10022;</div>
+            <div className="floating-doodle doodle-star-2">&#9733;</div>
+            <div className="floating-doodle doodle-star-3">&#9829;</div>
           </div>
         </div>
       </div>

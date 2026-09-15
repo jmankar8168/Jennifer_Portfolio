@@ -2,7 +2,7 @@ import React from 'react';
 import Nav from '../components/Nav';
 import MarqueeTicker from '../components/MarqueeTicker';
 import GiantFooter from '../components/GiantFooter';
-import { Sparkles, Calendar, MapPin, CheckCircle2, Code, Layout, ShieldCheck, Heart } from 'lucide-react';
+import { Sparkles, MapPin } from 'lucide-react';
 import characterImg from '../assets/jenni_character.jpg';
 
 export default function AboutPage() {
@@ -67,7 +67,7 @@ export default function AboutPage() {
       <div className="page-editorial-banner">
         <div className="header-meta-tag">
           <Sparkles size={13} />
-          <span>BIOGRAPHY & DESIGN PHILOSOPHY</span>
+          <span>BIOGRAPHY &amp; DESIGN PHILOSOPHY</span>
         </div>
         <h1 className="page-main-headline">
           About <span className="font-script">Jennifer</span>
@@ -87,20 +87,20 @@ export default function AboutPage() {
             <img src={characterImg} alt="Jennifer Portrait" className="about-portrait-img" />
             <div className="portrait-details">
               <span className="portrait-title">Jennifer Mankar</span>
-              <span className="portrait-sub">Creative Technologist · Based in NY & Worldwide</span>
+              <span className="portrait-sub">Creative Technologist &#8226; Based in NY &amp; Worldwide</span>
             </div>
           </div>
 
           <div className="about-bio-text-block">
             <h2 className="bio-section-title">
-              Crafting Bold & Delightful <span className="font-serif italic font-normal">Web Magic</span>
+              Crafting Bold &amp; Delightful <span className="font-serif italic font-normal">Web Magic</span>
             </h2>
             <p className="bio-paragraph">
               Hello! I'm Jennifer (often called Jenni). I specialize in designing and engineering digital experiences that refuse to look like generic templates.
             </p>
             <p className="bio-paragraph">
               My background sits right at the intersection of creative visual aesthetics and rigorous frontend engineering.
-              I treat every design as a cohesive system — from foundational tokens (color, spacing, typography) to interactive micro-animations and production deployment.
+              I treat every design as a cohesive system &mdash; from foundational tokens (color, spacing, typography) to interactive micro-animations and production deployment.
             </p>
             <p className="bio-paragraph">
               When I'm not pushing pixels in Figma or building React components, you'll find me exploring typography archives, enjoying craft coffee, and experimenting with generative visuals.
@@ -135,13 +135,13 @@ export default function AboutPage() {
         {/* Skills & Toolkit Breakdown */}
         <section className="skills-breakdown-section">
           <div className="section-title-badge">
-            <Sparkles size={14} /> CAPABILITIES & ARSENAL
+            <Sparkles size={14} /> CAPABILITIES &amp; ARSENAL
           </div>
-          <h2 className="section-heading">Skills & Tools</h2>
+          <h2 className="section-heading">Skills &amp; Tools</h2>
 
           <div className="skills-two-col-grid">
             <div className="skill-category-card">
-              <h3 className="category-title">🎨 Product & UI/UX Design</h3>
+              <h3 className="category-title">&#10022; Product &amp; UI/UX Design</h3>
               <div className="skill-chips-row">
                 {designSkills.map((s, i) => (
                   <span key={i} className="skill-chip">{s}</span>
@@ -150,7 +150,7 @@ export default function AboutPage() {
             </div>
 
             <div className="skill-category-card">
-              <h3 className="category-title">⚡ Frontend Engineering</h3>
+              <h3 className="category-title">&#9733; Frontend Engineering</h3>
               <div className="skill-chips-row">
                 {engineeringSkills.map((s, i) => (
                   <span key={i} className="skill-chip">{s}</span>
@@ -160,10 +160,10 @@ export default function AboutPage() {
           </div>
 
           <div className="tools-card">
-            <h4 className="tools-title">Daily Tools & Environments:</h4>
+            <h4 className="tools-title">Daily Tools &amp; Environments:</h4>
             <div className="tools-chips-row">
               {tools.map((tool, i) => (
-                <span key={i} className="tool-chip">✦ {tool}</span>
+                <span key={i} className="tool-chip">&#10022; {tool}</span>
               ))}
             </div>
           </div>
@@ -174,7 +174,7 @@ export default function AboutPage() {
           <div className="section-title-badge">
             <Sparkles size={14} /> BACKGROUND
           </div>
-          <h2 className="section-heading">Experience & Journey</h2>
+          <h2 className="section-heading">Experience &amp; Journey</h2>
 
           <div className="timeline-items-wrapper">
             {careerTimeline.map((item, index) => (

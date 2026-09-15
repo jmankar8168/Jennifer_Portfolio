@@ -36,17 +36,19 @@ export default function Nav() {
           className="announcement-arrow-btn"
           aria-label="Previous announcement"
         >
-          ‹
+          &#8592;
         </button>
         <span className="announcement-text">
-          <span className="announcement-sparkle">✧</span> {announcements[announcementIndex]} <span className="announcement-sparkle">✧</span>
+          <Sparkles size={13} className="announcement-sparkle-icon" />
+          <span>{announcements[announcementIndex]}</span>
+          <Sparkles size={13} className="announcement-sparkle-icon" />
         </span>
         <button
           onClick={nextAnnouncement}
           className="announcement-arrow-btn"
           aria-label="Next announcement"
         >
-          ›
+          &#8594;
         </button>
       </div>
 
@@ -55,7 +57,7 @@ export default function Nav() {
         {/* Logo: jenni + olive star */}
         <Link to="/" className="brand-logo" onClick={() => setMobileMenuOpen(false)}>
           <span className="brand-logo-text">jenni</span>
-          <span className="brand-star">✧</span>
+          <span className="brand-star">&#10022;</span>
         </Link>
 
         {/* Desktop Nav Links */}
@@ -71,7 +73,7 @@ export default function Nav() {
               {({ isActive }) => (
                 <>
                   <span className="nav-link-title">{item.name}</span>
-                  {isActive && <span className="nav-active-dot">•</span>}
+                  {isActive && <span className="nav-active-dot">&#8226;</span>}
                 </>
               )}
             </NavLink>
@@ -124,7 +126,8 @@ export default function Nav() {
               onClick={() => setMobileMenuOpen(false)}
               className="mobile-primary-btn"
             >
-              Work with Me ↗
+              <span>Work with Me</span>
+              <ArrowUpRight size={16} />
             </Link>
             <Link
               to="/contact"

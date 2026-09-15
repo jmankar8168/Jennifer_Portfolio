@@ -7,9 +7,10 @@ export default function SelectedWorkPreview() {
     {
       id: 1,
       title: 'VisionSync Design System & Component Library',
-      role: 'Design Systems · React 18 · Figma Tokens',
+      category: 'Design Systems',
+      role: 'Design Tokens &#8226; React 18 &#8226; Storybook',
       year: '2026',
-      description: 'Comprehensive, accessible enterprise design system featuring 60+ interactive components, foundational design tokens, and live Storybook integration.',
+      description: 'Enterprise-grade, accessible UI component kit engineered from custom Figma design tokens. Features 60+ interactive components, theme switching, and live Storybook documentation.',
       image: '/project-ai.jpg',
       link: '/work',
       aspect: 'featured'
@@ -17,7 +18,8 @@ export default function SelectedWorkPreview() {
     {
       id: 2,
       title: 'Aurora AI Predictive Analytics Suite',
-      role: 'UI/UX Design · Full-Stack React',
+      category: 'AI & Analytics',
+      role: 'UI/UX Design &#8226; Full-Stack React',
       year: '2026',
       description: 'Futuristic intelligence platform displaying real-time predictive sales trajectories, automated anomaly warnings, and smart visual telemetry.',
       image: '/project-ai.jpg',
@@ -27,12 +29,24 @@ export default function SelectedWorkPreview() {
     {
       id: 3,
       title: 'Synapse Flow Microservice Automation Engine',
-      role: 'Interactive UI · Visual Canvas Workflow',
+      category: 'SaaS Systems',
+      role: 'Interactive UI &#8226; Visual Canvas Workflow',
       year: '2025',
       description: 'Visual node graph orchestration tool for cloud architectures with real-time terminal tracing and webhook synchronization.',
       image: '/project-saas.jpg',
       link: '/work',
       aspect: 'standard'
+    },
+    {
+      id: 4,
+      title: 'JoyBabe Studio Creative Editorial Platform',
+      category: 'Brand & Web',
+      role: 'Art Direction &#8226; Frontend Development',
+      year: '2025',
+      description: 'A whimsical digital boutique combining retro scrapbook layout elements, tactile micro-animations, and smooth responsive ecommerce flows.',
+      image: '/project-saas.jpg',
+      link: '/work',
+      aspect: 'featured'
     }
   ];
 
@@ -61,7 +75,7 @@ export default function SelectedWorkPreview() {
 
         {/* Editorial Project Cards Grid */}
         <div className="editorial-projects-grid">
-          {selectedProjects.map((proj, idx) => (
+          {selectedProjects.map((proj) => (
             <Link
               key={proj.id}
               to={proj.link}
@@ -83,14 +97,17 @@ export default function SelectedWorkPreview() {
 
               <div className="project-card-info">
                 <div className="project-meta-top">
-                  <span className="project-category-pill">{proj.role}</span>
+                  <span
+                    className="project-category-pill"
+                    dangerouslySetInnerHTML={{ __html: proj.role }}
+                  ></span>
                   <span className="project-year-pill">{proj.year}</span>
                 </div>
                 <h3 className="project-card-title">{proj.title}</h3>
                 <p className="project-card-desc">{proj.description}</p>
                 <div className="project-card-cta">
-                  <span>Explore Project Details</span>
-                  <span className="cta-arrow">→</span>
+                  <span>Explore Case Study</span>
+                  <span className="cta-arrow">&#8594;</span>
                 </div>
               </div>
             </Link>
@@ -100,8 +117,8 @@ export default function SelectedWorkPreview() {
         {/* View All Work CTA Button */}
         <div className="view-all-center-row">
           <Link to="/work" className="editorial-large-btn">
-            <span>View All Work & Case Studies</span>
-            <span className="arrow-icon">→</span>
+            <span>View All Work &amp; Case Studies</span>
+            <span className="arrow-icon">&#8594;</span>
           </Link>
         </div>
       </div>

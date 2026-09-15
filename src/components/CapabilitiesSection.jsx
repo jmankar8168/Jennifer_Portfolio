@@ -4,6 +4,12 @@ import { Sparkles, ArrowRight } from 'lucide-react';
 export default function CapabilitiesSection() {
   const [hoveredIdx, setHoveredIdx] = useState(0);
 
+  const metricBadges = [
+    { value: '60+', label: 'UI Tokens & Components', shape: 'flower-1' },
+    { value: '100%', label: 'Custom Architecture', shape: 'flower-2' },
+    { value: '99%', label: 'Lighthouse Performance', shape: 'flower-3' }
+  ];
+
   const capabilities = [
     {
       num: '01',
@@ -51,21 +57,36 @@ export default function CapabilitiesSection() {
 
   return (
     <section className="capabilities-editorial-section">
-      <div className="section-container">
+      {/* Pinstripe Background Container inspired by Section 3 of Reference 2 */}
+      <div className="pinstripe-banner-bg"></div>
+
+      <div className="section-container relative-content">
         <div className="editorial-section-header">
           <div className="header-meta-tag">
             <Sparkles size={13} />
-            <span>DISCIPLINES & EXPERTISE</span>
+            <span>DISCIPLINES &amp; EXPERTISE</span>
           </div>
           <h2 className="editorial-title">
-            Design Approach & <span className="font-script">Capabilities</span>
+            Design Approach &amp; <span className="font-script">Capabilities</span>
           </h2>
           <p className="editorial-subtitle">
-            A balanced synergy of strategic design thinking and modern frontend execution.
+            A balanced synergy of strategic design thinking, playful details, and modern frontend execution.
           </p>
         </div>
 
-        {/* Notebook / Ticket Strip Grid inspired by the 2nd Reference */}
+        {/* Flower / Scalloped Petal Badges inspired by Section 3 of Reference 2 ($399, $8, $99 badges) */}
+        <div className="petal-badges-row">
+          {metricBadges.map((badge, i) => (
+            <div key={i} className={`petal-badge-item ${badge.shape}`}>
+              <div className="petal-badge-inner">
+                <span className="petal-badge-val">{badge.value}</span>
+                <span className="petal-badge-lbl">{badge.label}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Capabilities List with clean hover states */}
         <div className="capabilities-list">
           {capabilities.map((cap, idx) => (
             <div
@@ -82,7 +103,7 @@ export default function CapabilitiesSection() {
                 </div>
               </div>
               <div className="cap-arrow-col">
-                <span className="cap-arrow-badge">↗</span>
+                <span className="cap-arrow-badge">&#8594;</span>
               </div>
             </div>
           ))}

@@ -69,7 +69,7 @@ export default function ContactPage() {
               </div>
               <h3 className="availability-title">Open for 2026 Inquiries</h3>
               <p className="availability-desc">
-                Currently taking on select full-time, contract, and freelance design & frontend opportunities.
+                Currently taking on select full-time, contract, and freelance design &amp; frontend opportunities.
               </p>
             </div>
 
@@ -97,7 +97,7 @@ export default function ContactPage() {
             </div>
 
             <div className="social-links-panel">
-              <span className="social-label">SOCIAL PROFILES & CODE:</span>
+              <span className="social-label">SOCIAL PROFILES &amp; CODE:</span>
               <div className="social-links-list">
                 <a href="https://github.com/jmankar8168" target="_blank" rel="noreferrer" className="social-btn">
                   <span>GitHub</span>
@@ -119,7 +119,7 @@ export default function ContactPage() {
           <div className="contact-form-panel">
             <div className="form-card-tape"></div>
             <h2 className="form-title">Send an Inquiry</h2>
-            <p className="form-subtitle">Fill out the brief form below and I'll get back to you within 24–48 hours.</p>
+            <p className="form-subtitle">Fill out the brief form below and I'll get back to you within 24&ndash;48 hours.</p>
 
             <form onSubmit={handleSubmit} className="minimal-contact-form">
               <div className="form-field-group">
@@ -156,10 +156,10 @@ export default function ContactPage() {
                   onChange={handleChange}
                   className="editorial-select"
                 >
-                  <option value="UI/UX Design">UI/UX & Product Design</option>
+                  <option value="UI/UX Design">UI/UX &amp; Product Design</option>
                   <option value="Design System">Design System Architecture</option>
                   <option value="Frontend Development">Frontend Development (React/Vite)</option>
-                  <option value="Full Project">Full Product Design & Code</option>
+                  <option value="Full Project">Full Product Design &amp; Code</option>
                   <option value="Other">Other Collaboration</option>
                 </select>
               </div>
@@ -181,7 +181,7 @@ export default function ContactPage() {
                 {submitted ? (
                   <>
                     <Check size={18} />
-                    <span>Inquiry Sent Successfully! ✧</span>
+                    <span>Inquiry Sent Successfully! &#10022;</span>
                   </>
                 ) : (
                   <>

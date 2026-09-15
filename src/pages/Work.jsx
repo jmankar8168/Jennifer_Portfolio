@@ -3,7 +3,6 @@ import Nav from '../components/Nav';
 import MarqueeTicker from '../components/MarqueeTicker';
 import GiantFooter from '../components/GiantFooter';
 import { ExternalLink, Sparkles, ArrowUpRight } from 'lucide-react';
-import { GithubIcon } from '../components/Icons';
 
 export default function Work() {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -117,7 +116,7 @@ export default function Work() {
                   className="work-card-image"
                 />
                 <div className="work-card-hover-badge">
-                  <span>Explore Case Study ↗</span>
+                  <span>Explore Case Study &#8594;</span>
                 </div>
               </div>
 

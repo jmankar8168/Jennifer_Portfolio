@@ -15,48 +15,46 @@ export default function ContactPreview() {
   return (
     <section className="contact-preview-section">
       <div className="section-container">
-        <div className="contact-card-frame">
-          <div className="contact-card-tape"></div>
-
-          <div className="contact-card-inner">
-            <div className="contact-availability-badge">
-              <span className="status-indicator-dot"></span>
-              <span>Available for Select Projects & Collaborations (2026)</span>
+        {/* Scalloped Postage Stamp Cloud Card on Soft Blue/Lavender Background (Reference 2) */}
+        <div className="scallop-cloud-wrapper">
+          <div className="scallop-cloud-card">
+            <div className="cloud-stamp-top">
+              <span className="cloud-stamp-badge">MONTHLY &amp; PROJECT COLLABORATION</span>
             </div>
 
-            <h2 className="contact-card-headline">
+            <h2 className="cloud-headline">
               Have a project in mind? <br />
               <span className="font-serif italic font-normal">Let's make something</span>{' '}
               <span className="font-script">meaningful</span>.
             </h2>
 
-            <p className="contact-card-subtitle">
+            <p className="cloud-subtitle">
               Whether you're looking for an editorial web experience, a full design system overhaul,
               or a dedicated product design partner, I'd love to connect.
             </p>
 
-            <div className="contact-cta-buttons-row">
-              <Link to="/contact" className="contact-cta-main-btn">
+            <div className="cloud-cta-group">
+              <Link to="/contact" className="cloud-main-btn">
                 <span>Let's Talk</span>
-                <span className="arrow-icon">→</span>
+                <span className="btn-arrow">&#8594;</span>
               </Link>
 
-              <button onClick={handleCopy} className="contact-email-copy-pill">
+              <button onClick={handleCopy} className="cloud-email-btn">
                 <Mail size={16} />
                 <span>{email}</span>
                 {copied ? <Check size={16} color="#788554" /> : <Copy size={16} opacity={0.6} />}
               </button>
             </div>
 
-            <div className="contact-social-links-row">
+            <div className="cloud-socials-row">
               <a href="https://github.com/jmankar8168" target="_blank" rel="noreferrer" className="social-pill-link">
-                GitHub ↗
+                GitHub &#8599;
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-pill-link">
-                LinkedIn ↗
+                LinkedIn &#8599;
               </a>
               <a href="https://behance.net" target="_blank" rel="noreferrer" className="social-pill-link">
-                Behance ↗
+                Behance &#8599;
               </a>
             </div>
           </div>
