@@ -1,104 +1,179 @@
-import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function WorksSection() {
-  const projects = [
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [isHoveringSection, setIsHoveringSection] = useState(false);
+  const sectionRef = useRef(null);
+  
+  const mousePos = useRef({ x: 0, y: 0 });
+  const previewPos = useRef({ x: 0, y: 0 });
+  const previewRef = useRef(null);
+  const frameRef = useRef(null);
+
+  // jenni's Work Categories with associated project assets & links
+  const categories = [
     {
-      id: 1,
-      title: 'Re-imagining TPGs',
-      category: 'UX Architecture • Mobile App',
-      year: '2026',
-      image: '/project-ai.jpg',
-      tag: 'Featured Case Study',
-      rotate: '-2.5deg',
-      link: 'https://storybook-static-mauve-pi.vercel.app'
-    },
-    {
-      id: 2,
-      title: 'Circle',
-      category: 'Brand Strategy • Web Experience',
-      year: '2026',
+      id: 'cat-1',
+      title: 'BRANDING & ART DIRECTION',
+      subtitle: 'Brand Systems • Visual Identity',
       image: '/project-saas.jpg',
-      tag: 'Art Direction',
-      rotate: '2deg',
-      link: 'https://jmankar8168.github.io/Jennifer_Portfolio/'
+      link: 'https://storybook-static-mauve-pi.vercel.app',
+      aspectRatio: '4/3'
     },
     {
-      id: 3,
-      title: 'Pulse App',
-      category: 'Product Design • iOS Widgets',
-      year: '2025',
+      id: 'cat-2',
+      title: 'PUBLICATION DESIGN',
+      subtitle: 'Editorial • Books & Print',
       image: '/project-ai.jpg',
-      tag: 'Design System',
-      rotate: '-1deg',
-      link: 'https://github.com/jmankar8168/Jennifer_Portfolio'
+      link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
+      aspectRatio: '3/4'
+    },
+    {
+      id: 'cat-3',
+      title: 'MOTION GRAPHICS',
+      subtitle: '3D Motion • Kinetic Type',
+      image: '/project-saas.jpg',
+      link: 'https://github.com/jmankar8168/Jennifer_Portfolio',
+      aspectRatio: '16/9'
+    },
+    {
+      id: 'cat-4',
+      title: 'PACKAGING DESIGN',
+      subtitle: 'Physical Goods • Sustainable Packaging',
+      image: '/project-ai.jpg',
+      link: 'https://storybook-static-mauve-pi.vercel.app',
+      aspectRatio: '1/1'
+    },
+    {
+      id: 'cat-5',
+      title: 'ART & ILLUSTRATION',
+      subtitle: 'Digital Canvas • Character Design',
+      image: '/project-saas.jpg',
+      link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
+      aspectRatio: '4/3'
     }
   ];
 
+  // Handle smooth lerp position for floating thumbnail preview
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      
+      // Calculate mouse position relative to section bounds
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      mousePos.current = { x, y };
+
+      // Set initial lerp position on first move
+      if (previewPos.current.x === 0 && previewPos.current.y === 0) {
+        previewPos.current = { x, y };
+      }
+    };
+
+    const animate = () => {
+      // Lerp preview position towards mouse position (0.15 factor for tactile lag)
+      previewPos.current.x += (mousePos.current.x - previewPos.current.x) * 0.15;
+      previewPos.current.y += (mousePos.current.y - previewPos.current.y) * 0.15;
+
+      if (previewRef.current) {
+        // Position offset: place thumbnail slightly to bottom-right of cursor
+        const offsetX = 40;
+        const offsetY = 20;
+
+        // Viewport boundary collision prevention
+        const sectionWidth = sectionRef.current ? sectionRef.current.offsetWidth : window.innerWidth;
+        const finalX = Math.min(previewPos.current.x + offsetX, sectionWidth - 240);
+        const finalY = previewPos.current.y + offsetY;
+
+        previewRef.current.style.transform = `translate3d(${finalX}px, ${finalY}px, 0px)`;
+      }
+
+      frameRef.current = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    frameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+    };
+  }, []);
+
+  const marqueeText = [
+    'ILLUSTRATION.', 'WEB DESIGN.', 'PACKAGING DESIGN.', 'BRANDING.', 'MOTION.', 'ART DIRECTION.'
+  ];
+
   return (
-    <section id="works" className="namrata-works-section">
-      <div className="section-title-wrap">
-        <h2 className="section-heading-blue">
-          PROJECTS THAT TELL STORIES <span className="eyes-emoji">&#128064;</span>
-        </h2>
+    <section
+      id="works"
+      ref={sectionRef}
+      className="works-typographic-section"
+      onMouseEnter={() => setIsHoveringSection(true)}
+      onMouseLeave={() => setIsHoveringSection(false)}
+    >
+      {/* ── LAYER 10: Oversized Section Heading (WORKS) ── */}
+      <div className="works-editorial-heading">
+        <h2>(WORKS)</h2>
       </div>
 
-      <div className="pinned-projects-deck">
-        {/* Pinned Card 1: Re-imagining TPGs */}
-        <div className="pinned-project-card card-tp-gs">
-          <div className="card-top-tape-strip"></div>
-          <div className="browser-window-header">
-            <span className="window-dot dot-red"></span>
-            <span className="window-dot dot-yellow"></span>
-            <span className="window-dot dot-green"></span>
-            <span className="window-title-tag">tpg-case-study.fig</span>
-          </div>
-          <div className="project-media-box">
-            <img src="/project-ai.jpg" alt="Re-imagining TPGs" className="project-thumbnail-img" />
-          </div>
-          <div className="project-caption-footer">
-            <span className="project-title-bold">Re-imagining TPGs</span>
-            <span className="project-meta-light">UX System • 2026</span>
-          </div>
+      {/* ── LAYER 20: Rotated Continuous Moving Diagonal Marquee Ribbon ── */}
+      <div className="diagonal-marquee-ribbon">
+        <div className="marquee-track">
+          {Array(4).fill(marqueeText).flat().map((item, idx) => (
+            <span key={idx} className="marquee-item">
+              <span className="marquee-word">{item}</span>
+              <span className="marquee-star">★</span>
+            </span>
+          ))}
         </div>
+      </div>
 
-        {/* Pinned Card 2: Circle */}
-        <div className="pinned-project-card card-circle">
-          <div className="paperclip-graphic-accent">
-            <svg viewBox="0 0 30 50" width="24" height="40">
-              <path d="M10 15 L10 38 Q10 44 16 44 Q22 44 22 38 L22 10 Q22 4 14 4 Q6 4 6 12 L6 34" stroke="#ef4444" strokeWidth="3" fill="none" strokeLinecap="round" />
-            </svg>
-          </div>
-          <div className="browser-window-header">
-            <span className="window-dot dot-red"></span>
-            <span className="window-dot dot-yellow"></span>
-            <span className="window-dot dot-green"></span>
-            <span className="window-title-tag">circle-brand.live</span>
-          </div>
-          <div className="project-media-box">
-            <img src="/project-saas.jpg" alt="Circle" className="project-thumbnail-img" />
-          </div>
-          <div className="project-caption-footer">
-            <span className="project-title-bold">Circle</span>
-            <span className="project-meta-light">Art Direction • 2026</span>
-          </div>
+      {/* ── LAYER 30: Central Typographic Category List ── */}
+      <div className="works-category-container">
+        <div className="works-category-list">
+          {categories.map((cat, idx) => {
+            const isActive = activeCategory === idx;
+            return (
+              <a
+                key={cat.id}
+                href={cat.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`works-category-item ${isActive ? 'is-active' : 'is-inactive'}`}
+                onMouseEnter={() => setActiveCategory(idx)}
+                onClick={(e) => {
+                  // If on touch device and not active, first tap activates preview
+                  if ('ontouchstart' in window && !isActive) {
+                    e.preventDefault();
+                    setActiveCategory(idx);
+                  }
+                }}
+              >
+                <span className="category-title">{cat.title}</span>
+                <span className="category-arrow">↗</span>
+              </a>
+            );
+          })}
         </div>
+      </div>
 
-        {/* Pinned Card 3: Pulse App */}
-        <div className="pinned-project-card card-pulse">
-          <div className="yellow-tape-accent"></div>
-          <div className="browser-window-header">
-            <span className="window-dot dot-red"></span>
-            <span className="window-dot dot-yellow"></span>
-            <span className="window-dot dot-green"></span>
-            <span className="window-title-tag">pulse-app.ios</span>
-          </div>
-          <div className="project-media-box">
-            <img src="/project-ai.jpg" alt="Pulse App" className="project-thumbnail-img" />
-          </div>
-          <div className="project-caption-footer">
-            <span className="project-title-bold">Pulse App</span>
-            <span className="project-meta-light">iOS Widgets • 2025</span>
+      {/* ── LAYER 40: Cursor-Following Floating Project Preview (pointer-events: none) ── */}
+      <div
+        ref={previewRef}
+        className={`cursor-project-preview-card ${isHoveringSection ? 'preview-visible' : 'preview-hidden'}`}
+      >
+        <div className="preview-image-wrapper">
+          <img
+            key={categories[activeCategory].id}
+            src={categories[activeCategory].image}
+            alt={categories[activeCategory].title}
+            className="preview-thumbnail-img"
+          />
+          <div className="preview-card-caption">
+            <span className="preview-card-title">{categories[activeCategory].title}</span>
+            <span className="preview-card-sub">{categories[activeCategory].subtitle}</span>
           </div>
         </div>
       </div>
