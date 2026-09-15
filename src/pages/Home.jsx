@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Preloader from '../components/Preloader';
+import HeroIntro from '../components/HeroIntro';
 import Header from '../components/Header';
 import FloatingProfile from '../components/FloatingProfile';
 import HeroScene from '../components/HeroScene';
@@ -12,7 +12,7 @@ import FooterBanner from '../components/FooterBanner';
 import CVModal from '../components/CVModal';
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  const [introComplete, setIntroComplete] = useState(false);
   const [isCVOpen, setIsCVOpen] = useState(false);
 
   const scrollToContact = () => {
@@ -22,19 +22,19 @@ export default function Home() {
 
   return (
     <div className="jenni-universe">
-      {/* 1. Initial Page-Load Preloader Animation */}
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
+      {/* ── Cinematic intro overlay — sits on top, animates away ── */}
+      {!introComplete && (
+        <HeroIntro onComplete={() => setIntroComplete(true)} />
+      )}
 
-      {/* 2. Top Header Navigation with Search & Action Pills */}
+      {/* ── Existing site — always mounted underneath ── */}
       <Header
         onOpenCV={() => setIsCVOpen(true)}
         onOpenContact={scrollToContact}
       />
 
-      {/* 3. Floating Profile Badge (Left Column) */}
       <FloatingProfile onMessageClick={scrollToContact} />
 
-      {/* 4. Main Single-Page Narrative Scroll Flow */}
       <main className="jenni-main-flow">
         <HeroScene />
         <AboutSection />
@@ -44,10 +44,8 @@ export default function Home() {
         <ContactSection onOpenCV={() => setIsCVOpen(true)} />
       </main>
 
-      {/* 5. Giant Blue Footer Band */}
       <FooterBanner />
 
-      {/* 6. Interactive CV Modal */}
       <CVModal isOpen={isCVOpen} onClose={() => setIsCVOpen(false)} />
     </div>
   );

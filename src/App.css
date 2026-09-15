@@ -1248,3 +1248,303 @@ body {
     text-align: center;
   }
 }
+
+
+/* ==========================================
+   HERO INTRO OVERLAY
+   Cinematic full-screen entrance that plays
+   on top of the existing site, then animates
+   away to reveal the original homepage.
+   ========================================== */
+
+/* ── Phase 1 ENTER: blue bg, starburst, title appear ── */
+.hi-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  background-color: #0038ff;
+  overflow: hidden;
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* faint graph-paper grid matching original site */
+.hi-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right,  rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ─── Starburst ─────────────────────────────────── */
+.hi-star-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.2) rotate(-20deg);
+  width: min(180vw, 180vh);
+  height: min(180vw, 180vh);
+  pointer-events: none;
+  animation: hiStarEnter 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  will-change: transform;
+}
+
+@keyframes hiStarEnter {
+  to {
+    transform: translate(-50%, -50%) scale(1.15) rotate(0deg);
+  }
+}
+
+.hi-star-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* starburst exit */
+.hi-star-exit,
+.hi-star-wrap.hi-star-exit {
+  animation: hiStarExit 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes hiStarExit {
+  0%   { transform: translate(-50%, -50%) scale(1.15) rotate(0deg); opacity: 1; }
+  40%  { transform: translate(-50%, -68%) scale(1.8) rotate(8deg);  opacity: 0.7; }
+  100% { transform: translate(-50%, -160%) scale(3) rotate(18deg);  opacity: 0; }
+}
+
+/* ─── Navigation ────────────────────────────────── */
+.hi-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px;
+  z-index: 10;
+  animation: hiFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+@keyframes hiFadeUp {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hi-nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  transition: all 0.2s ease;
+}
+
+.hi-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.hi-nav-link {
+  font-family: var(--font-mono-grotesk);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.hi-nav-link:hover {
+  color: #ffffff;
+}
+
+/* ─── Giant title ───────────────────────────────── */
+.hi-title-wrap {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  opacity: 0;
+  transform: scale(0.7) translateY(30px);
+  animation: hiTitleEnter 1.0s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes hiTitleEnter {
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.hi-giant {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 18vw, 16rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin: 0;
+  /* subtle floating animation during 'hold' phase */
+  animation: hiTitleEnter 1.0s cubic-bezier(0.22, 1, 0.36, 1) 0.8s forwards,
+             hiFloat 4s ease-in-out 2s infinite;
+  will-change: transform;
+}
+
+@keyframes hiFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.hi-tagline {
+  font-family: var(--font-mono-grotesk);
+  font-size: clamp(0.7rem, 1.8vw, 1rem);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* title exit: float UP and shrink toward header logo position */
+.hi-title-exit,
+.hi-title-wrap.hi-title-exit {
+  animation: hiTitleExit 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+}
+@keyframes hiTitleExit {
+  0%   { opacity: 1; transform: scale(1) translateY(0);       }
+  35%  { opacity: 1; transform: scale(1.06) translateY(-20px); }
+  80%  { opacity: 0.4; transform: scale(0.08) translateY(-44vh) translateX(-44vw); }
+  100% { opacity: 0;   transform: scale(0.06) translateY(-46vh) translateX(-46vw); }
+}
+
+/* ─── Cursor orb ────────────────────────────────── */
+.hi-orb {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: hiOrbIn 0.6s ease 2.2s forwards;
+}
+@keyframes hiOrbIn {
+  to { opacity: 1; }
+}
+
+/* ─── Bottom strip ──────────────────────────────── */
+.hi-bottom {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  z-index: 10;
+  opacity: 0;
+  animation: hiFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.6s both;
+}
+
+.hi-scroll {
+  font-family: var(--font-mono-grotesk);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hi-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hi-pill {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #0038ff;
+  background-color: #ffffff;
+  padding: 5px 14px;
+  border-radius: 9999px;
+}
+
+/* ─── Phase: EXIT ─────────────────────────────────
+   The entire overlay fades + scales out.
+   Classes are applied via phase state changes.
+   ──────────────────────────────────────────────── */
+.hi-phase-exit .hi-star-wrap  { animation: hiStarExit  2.4s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards; }
+.hi-phase-exit .hi-title-wrap { animation: hiTitleExit 2.3s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards; }
+.hi-phase-exit .hi-nav        { animation: hiNavExit   0.9s cubic-bezier(0.4, 0, 0.2, 1) 1.5s forwards; }
+.hi-phase-exit .hi-bottom     { animation: hiNavExit   0.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards; }
+.hi-phase-exit .hi-grid       { animation: hiNavExit   1.0s ease 1.8s forwards; }
+.hi-phase-exit .hi-orb        { animation: hiNavExit   0.6s ease 0s forwards; }
+.hi-phase-exit {
+  /* overlay itself fades away */
+  animation: hiOverlayExit 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards;
+}
+
+@keyframes hiStarExit {
+  0%   { transform: translate(-50%, -50%) scale(1.15) rotate(0deg);  opacity: 1; }
+  50%  { transform: translate(-50%, -70%) scale(2.2) rotate(12deg);  opacity: 0.6; }
+  100% { transform: translate(-50%, -180%) scale(3.5) rotate(24deg); opacity: 0; }
+}
+
+@keyframes hiTitleExit {
+  0%   { opacity: 1; transform: scale(1)    translateY(0);   }
+  30%  { opacity: 1; transform: scale(1.08) translateY(-15px); }
+  90%  { opacity: 0; transform: scale(0.07) translateY(-45vh); }
+  100% { opacity: 0; transform: scale(0.05) translateY(-48vh); }
+}
+
+@keyframes hiNavExit {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes hiOverlayExit {
+  0%   { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+/* ─── Responsive ────────────────────────────────── */
+@media (max-width: 768px) {
+  .hi-nav {
+    padding: 18px 24px;
+  }
+  .hi-nav-links {
+    gap: 20px;
+  }
+  .hi-nav-link {
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+  }
+  .hi-bottom {
+    padding: 0 24px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    bottom: 24px;
+  }
+  .hi-star-wrap {
+    width: min(260vw, 260vh);
+    height: min(260vw, 260vh);
+  }
+}
+
+@media (max-width: 480px) {
+  .hi-nav-links {
+    display: none;
+  }
+  .hi-pills {
+    display: none;
+  }
+}
+
+/* END HERO INTRO */
