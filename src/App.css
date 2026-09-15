@@ -1551,7 +1551,7 @@ body {
 
 
 /* ==========================================================================
-   PERSISTENT UNIFIED NAVBAR WITH TWO ANIMATED STATES
+   UNIFIED FIRST NAVBAR THROUGHOUT (JENNI. / HOME WORK ABOUT CONTACT)
    ========================================================================== */
 
 .jenni-header {
@@ -1561,30 +1561,38 @@ body {
   right: 0;
   width: 100%;
   z-index: 100000;
-  padding: 18px 32px;
+  padding: 18px 36px;
   box-sizing: border-box;
-  transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-              padding 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.4s ease,
+              border-color 0.4s ease,
+              box-shadow 0.4s ease,
+              padding 0.4s ease;
 }
 
-/* Phase 1: Enter & Hold (Hero Overlay active) */
-.jenni-header-phase-enter,
-.jenni-header-phase-hold {
+/* Over Blue Hero Overlay */
+.jenni-header.jenni-header-hero {
   background-color: transparent;
   border-bottom: 1.5px solid transparent;
   box-shadow: none;
 }
 
-/* Phase 2: Exit & Done (Original Website style) */
-.jenni-header-phase-exit,
-.jenni-header-phase-done {
+.jenni-header.jenni-header-hero .header-brand-name,
+.jenni-header.jenni-header-hero .header-nav-item {
+  color: #ffffff;
+}
+
+/* Over Light Website Content */
+.jenni-header.jenni-header-site {
   background: rgba(247, 250, 255, 0.94);
   backdrop-filter: blur(14px);
   border-bottom: 1.5px solid var(--grid-line);
-  padding: 14px 32px;
+  padding: 14px 36px;
   box-shadow: 0 4px 20px rgba(0, 56, 255, 0.04);
+}
+
+.jenni-header.jenni-header-site .header-brand-name,
+.jenni-header.jenni-header-site .header-nav-item {
+  color: var(--cobalt);
 }
 
 .header-inner {
@@ -1607,195 +1615,49 @@ body {
   text-decoration: none;
 }
 
-/* Avatar Mark Circle: Springs open from 0 to 38px */
-.avatar-mark-circle {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  border: 2px solid var(--dark);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--white);
-  transition: width 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
-              height 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
-              opacity 0.7s ease,
-              margin-right 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
-              transform 0.3s ease;
-  margin-right: 12px;
-}
-
-.avatar-mark-circle.avatar-collapsed {
-  width: 0px !important;
-  height: 0px !important;
-  opacity: 0 !important;
-  margin-right: 0px !important;
-  border-width: 0px !important;
-  pointer-events: none;
-}
-
-.avatar-mark-circle.avatar-expanded {
-  width: 38px;
-  height: 38px;
-  opacity: 1;
-  margin-right: 12px;
-}
-
 .header-brand-name {
   font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 900;
   letter-spacing: -0.03em;
-  transition: color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-flex;
-  align-items: baseline;
+  transition: color 0.4s ease;
 }
 
-.jenni-header-phase-enter .header-brand-name,
-.jenni-header-phase-hold .header-brand-name {
-  color: #ffffff;
-}
-
-.jenni-header-phase-exit .header-brand-name,
-.jenni-header-phase-done .header-brand-name {
-  color: var(--cobalt);
-}
-
-.brand-period {
-  display: inline-block;
-  transition: opacity 0.6s ease, max-width 0.6s ease;
-  overflow: hidden;
-  max-width: 20px;
-}
-
-.brand-period.period-hidden {
-  opacity: 0;
-  max-width: 0px;
-}
-
-/* Navigation Links & Horizontal Spread */
 .header-nav-links {
   display: flex;
   align-items: center;
-  transition: gap 1.2s cubic-bezier(0.34, 1.2, 0.64, 1);
-}
-
-/* Hero compact spacing vs Final wide spacing */
-.jenni-header-phase-enter .header-nav-links,
-.jenni-header-phase-hold .header-nav-links {
-  gap: 16px;
-}
-
-.jenni-header-phase-exit .header-nav-links,
-.jenni-header-phase-done .header-nav-links {
   gap: 28px;
 }
 
 .header-nav-item {
-  position: relative;
   text-decoration: none;
   font-family: var(--font-display);
   font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   padding: 6px 14px;
   border-radius: 9999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-              background-color 0.3s ease,
-              max-width 0.9s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.7s ease,
-              padding 0.9s ease;
-  overflow: hidden;
+  transition: color 0.4s ease, background-color 0.2s ease, transform 0.2s ease;
   white-space: nowrap;
-}
-
-.jenni-header-phase-enter .header-nav-item,
-.jenni-header-phase-hold .header-nav-item {
-  color: #ffffff;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-}
-
-.jenni-header-phase-exit .header-nav-item,
-.jenni-header-phase-done .header-nav-item {
-  color: var(--cobalt);
-  font-weight: 800;
-  letter-spacing: normal;
 }
 
 .header-nav-item:hover {
   background-color: rgba(0, 56, 255, 0.08);
-}
-
-.nav-item-collapsed {
-  max-width: 0px !important;
-  opacity: 0 !important;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  margin: 0px !important;
-  pointer-events: none;
-}
-
-.nav-item-expanded {
-  max-width: 140px;
-  opacity: 1;
-}
-
-.nav-label-hero,
-.nav-label-final {
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.jenni-header-phase-enter .nav-label-hero,
-.jenni-header-phase-hold .nav-label-hero {
-  opacity: 1;
-  display: inline;
-}
-
-.jenni-header-phase-enter .nav-label-final,
-.jenni-header-phase-hold .nav-label-final {
-  opacity: 0;
-  display: none;
-}
-
-.jenni-header-phase-exit .nav-label-hero,
-.jenni-header-phase-done .nav-label-hero {
-  opacity: 0;
-  display: none;
-}
-
-.jenni-header-phase-exit .nav-label-final,
-.jenni-header-phase-done .nav-label-final {
-  opacity: 1;
-  display: inline;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 768px) {
   .jenni-header {
-    padding: 12px 16px;
+    padding: 12px 18px;
   }
-  .jenni-header-phase-exit .header-nav-links,
-  .jenni-header-phase-done .header-nav-links {
+  .header-nav-links {
     gap: 12px;
   }
   .header-nav-item {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     padding: 4px 8px;
   }
 }
-@media (max-width: 480px) {
-  .header-nav-links {
-    gap: 8px;
-  }
-  .header-nav-item {
-    font-size: 0.8rem;
-    padding: 2px 6px;
-  }
-}
-
-
 /* ==========================================================================
    GLOBAL CUSTOM CURSOR (GPU MIX-BLEND-MODE DIFFERENCE)
    ========================================================================== */
