@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import HeroIntro from '../components/HeroIntro';
 import Header from '../components/Header';
-import HeroScene from '../components/HeroScene';
 import AboutSection from '../components/AboutSection';
 import WorksSection from '../components/WorksSection';
 import ProcessSection from '../components/ProcessSection';
@@ -35,7 +34,7 @@ export default function Home() {
 
       {/* ── Original Website Content (Mounted underneath) ── */}
       <main className="jenni-main-flow">
-        <HeroScene />
+        <section id="hero-spacer" style={{ minHeight: "100vh" }} />
         <AboutSection />
         <WorksSection />
         <ProcessSection />
