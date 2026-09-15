@@ -10,17 +10,44 @@ export default function CustomCursor() {
   
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isDarkBg, setIsDarkBg] = useState(true);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
 
-      // Check if hovering over clickable elements
-      const target = e.target;
+      const x = e.clientX;
+      const y = e.clientY;
+
+      const target = document.elementFromPoint(x, y);
       if (target) {
         const isClickable = target.closest('a, button, [role="button"], input, textarea, select, .clickable');
         setIsHovered(!!isClickable);
+
+        const darkParent = target.closest('.hi-overlay, .dark-bg, [data-dark="true"], .footer-banner, .btn-primary, .tag-dark');
+        
+        if (darkParent) {
+          setIsDarkBg(true);
+        } else {
+          try {
+            const bg = window.getComputedStyle(target).backgroundColor;
+            if (bg && bg.startsWith('rgb')) {
+              const parts = bg.match(/\d+/g);
+              if (parts && parts.length >= 3) {
+                const [r, g, b] = parts.map(Number);
+                const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+                if (brightness < 130 && bg !== 'rgba(0, 0, 0, 0)') {
+                  setIsDarkBg(true);
+                  return;
+                }
+              }
+            }
+          } catch (err) {
+            // fallback
+          }
+          setIsDarkBg(false);
+        }
       }
     };
 
@@ -36,9 +63,7 @@ export default function CustomCursor() {
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
 
-    // Smooth lerp loop for outer ring
     const animate = () => {
-      // Lerp ring towards mouse position
       ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
       ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
 
@@ -68,7 +93,7 @@ export default function CustomCursor() {
 
   return (
     <div
-      className={`custom-cursor-container ${isVisible ? 'cursor-visible' : 'cursor-hidden'} ${isHovered ? 'cursor-hover' : ''}`}
+      className={`custom-cursor-container ${isVisible ? 'cursor-visible' : 'cursor-hidden'} ${isHovered ? 'cursor-hover' : ''} ${isDarkBg ? 'cursor-on-dark' : 'cursor-on-light'}`}
       aria-hidden="true"
     >
       {/* Outer Ring */}

@@ -1797,7 +1797,7 @@ body {
 
 
 /* ==========================================================================
-   GLOBAL CUSTOM CURSOR (RING + CENTER DOT)
+   GLOBAL CUSTOM CURSOR (DYNAMIC DARK / LIGHT CONTRAST)
    ========================================================================== */
 
 @media (pointer: fine) {
@@ -1833,23 +1833,27 @@ body {
   left: 0;
   pointer-events: none;
   will-change: transform;
+  transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.custom-cursor-ring {
+/* Light cursor on top of dark areas */
+.custom-cursor-container.cursor-on-dark .custom-cursor-ring,
+.custom-cursor-container.cursor-on-dark .custom-cursor-dot {
   color: #ffffff;
-  mix-blend-mode: difference;
-  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
 }
 
-.custom-cursor-dot {
-  color: #ffffff;
-  mix-blend-mode: difference;
+/* Dark cursor on top of light areas */
+.custom-cursor-container.cursor-on-light .custom-cursor-ring,
+.custom-cursor-container.cursor-on-light .custom-cursor-dot {
+  color: #0038ff;
+  filter: drop-shadow(0 0 4px rgba(0, 56, 255, 0.15));
 }
 
 .cursor-ring-circle {
-  transition: stroke-width 0.3s ease;
+  transition: stroke-width 0.25s ease;
 }
 
 .cursor-hover .cursor-ring-circle {
-  stroke-width: 2.4;
+  stroke-width: 2.5;
 }
