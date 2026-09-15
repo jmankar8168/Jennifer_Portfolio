@@ -12,7 +12,6 @@ import CVModal from '../components/CVModal';
 
 export default function Home() {
   const [introPhase, setIntroPhase] = useState('enter');
-  const [introComplete, setIntroComplete] = useState(false);
   const [isCVOpen, setIsCVOpen] = useState(false);
 
   const scrollToContact = () => {
@@ -22,20 +21,17 @@ export default function Home() {
 
   return (
     <div className="jenni-universe">
-      {/* ── Single Persistent Unified Header ── */}
+      {/* ── Single Persistent Unified Header (Fixed Top) ── */}
       <Header
         introPhase={introPhase}
         onOpenCV={() => setIsCVOpen(true)}
         onOpenContact={scrollToContact}
       />
 
-      {/* ── Cinematic Poster Overlay — slides off to reveal original site ── */}
-      {!introComplete && (
-        <HeroIntro
-          onPhaseChange={(phase) => setIntroPhase(phase)}
-          onComplete={() => setIntroComplete(true)}
-        />
-      )}
+      {/* ── 100% Scroll-Driven Poster Overlay ── */}
+      <HeroIntro
+        onPhaseChange={(phase) => setIntroPhase(phase)}
+      />
 
       {/* ── Original Website Content (Mounted underneath) ── */}
       <main className="jenni-main-flow">

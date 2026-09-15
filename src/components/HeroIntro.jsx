@@ -1,91 +1,63 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /**
- * HeroIntro — cinematic opening poster overlay.
- * Timeline Choreography:
- * • 0.0s – 3.0s: 'enter' (blue bg + giant yellow starburst + white jenni. wordmark)
- * • 3.0s – 4.0s: 'hold'  (poster holds, cursor subtle tracking)
- * • 4.0s – 5.5s: 'exit'  (poster physically slides away toward bottom-left, starburst crops on edges)
- * • 5.5s – 7.5s: 'settle' (quiet pause, original site bg & header exposed)
- * • 7.5s – 12.0s: 'reveal' (original site hero scene content organically enters)
- * • 13.0s+:      'done'   (overlay unmounts, 100% interactive)
+ * HeroIntro — 100% Scroll-Driven Cinematic Opening Poster Overlay.
+ * No automatic timers: stays on screen until the user physically scrolls down.
+ * As user scrolls, poster translates towards bottom-left (-120vw, +80vh, -14deg rotate)
+ * to reveal the original website underneath.
  */
-export default function HeroIntro({ onComplete, onPhaseChange }) {
-  const overlayRef = useRef(null);
-  const [phase, setPhase] = useState('enter');
+export default function HeroIntro({ onPhaseChange }) {
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  const forceTopScroll = () => {
+  useEffect(() => {
+    // Disable automatic browser scroll restoration on refresh so user lands at top
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  };
 
-  useEffect(() => {
-    forceTopScroll();
+    const handleScroll = () => {
+      const sy = window.scrollY;
+      const vh = window.innerHeight || 800;
+      // Progress from 0 to 1 over first 70% of viewport scroll
+      const progress = Math.min(Math.max(sy / (vh * 0.7), 0), 1);
+      setScrollProgress(progress);
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) {
-      setTimeout(() => {
+      if (progress > 0.4) {
         if (onPhaseChange) onPhaseChange('done');
-        if (onComplete) onComplete();
-      }, 300);
-      return;
-    }
-
-    // 0.0s - 3.0s: Enter
-    const t1 = setTimeout(() => {
-      setPhase('hold');
-      if (onPhaseChange) onPhaseChange('hold');
-    }, 3000);
-
-    // 4.0s: Physical Poster Slide Exit
-    const t2 = setTimeout(() => {
-      setPhase('exit');
-      if (onPhaseChange) onPhaseChange('exit');
-    }, 4000);
-
-    // 5.5s: Settle period (Original site revealed)
-    const t3 = setTimeout(() => {
-      setPhase('settle');
-      if (onPhaseChange) onPhaseChange('settle');
-    }, 5500);
-
-    // 7.5s: Reveal secondary content
-    const t4 = setTimeout(() => {
-      setPhase('reveal');
-      if (onPhaseChange) onPhaseChange('reveal');
-    }, 7500);
-
-    // 13.0s: Done & Unmount
-    const t5 = setTimeout(() => {
-      setPhase('done');
-      if (onPhaseChange) onPhaseChange('done');
-      if (onComplete) onComplete();
-    }, 13000);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-      clearTimeout(t5);
+      } else {
+        if (onPhaseChange) onPhaseChange('enter');
+      }
     };
-  }, []);
 
-  if (phase === 'done') return null;
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [onPhaseChange]);
+
+  // Physical poster slide transformation calculated directly from scroll progress
+  const slideX = -scrollProgress * 120; // 0vw to -120vw
+  const slideY = scrollProgress * 85;   // 0vh to 85vh
+  const rotate = -scrollProgress * 14;  // 0deg to -14deg
+  const opacity = 1 - Math.pow(scrollProgress, 1.8);
+
+  if (scrollProgress >= 1) return null;
 
   return (
     <div
-      ref={overlayRef}
-      className={`hi-poster-overlay hi-phase-${phase}`}
+      className="hi-poster-overlay"
+      style={{
+        transform: `translate3d(${slideX}vw, ${slideY}vh, 0px) rotate(${rotate}deg)`,
+        opacity: opacity,
+        pointerEvents: scrollProgress > 0.3 ? 'none' : 'auto'
+      }}
       aria-hidden="true"
     >
       {/* Background grid lines */}
       <div className="hi-grid" />
 
       {/* Giant hand-drawn yellow starburst artwork */}
-      <div className={`hi-star-wrap hi-star-${phase}`}>
+      <div className="hi-star-wrap hi-star-active">
         <svg
           className="hi-star-svg"
           viewBox="0 0 700 700"
@@ -145,13 +117,13 @@ export default function HeroIntro({ onComplete, onPhaseChange }) {
       </div>
 
       {/* Giant wordmark */}
-      <div className={`hi-title-wrap hi-title-${phase}`}>
+      <div className="hi-title-wrap hi-title-active">
         <h1 className="hi-giant">jenni.</h1>
         <p className="hi-tagline">Product Designer &amp; Art Director</p>
       </div>
 
       {/* Bottom strip */}
-      <div className={`hi-bottom hi-bottom-${phase}`}>
+      <div className="hi-bottom hi-bottom-active">
         <span className="hi-scroll">scroll to explore &#8595;</span>
         <div className="hi-pills">
           <span className="hi-pill">Product Design</span>
