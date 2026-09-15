@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import HeroIntro from '../components/HeroIntro';
 import Header from '../components/Header';
-import FloatingProfile from '../components/FloatingProfile';
 import HeroScene from '../components/HeroScene';
 import AboutSection from '../components/AboutSection';
 import WorksSection from '../components/WorksSection';
@@ -38,8 +37,7 @@ export default function Home() {
         />
       )}
 
-      <FloatingProfile onMessageClick={scrollToContact} />
-
+      
       <main className="jenni-main-flow">
         <HeroScene />
         <AboutSection />
