@@ -177,19 +177,7 @@ export default function HeroIntro({ onComplete, onPhaseChange }) {
         <p className="hi-tagline">Product Designer &amp; Art Director</p>
       </div>
 
-      {/* cursor orb */}
-      <div
-        ref={orbRef}
-        className="hi-orb"
-        data-tx="0"
-        data-ty="0"
-        style={{ position: 'fixed', pointerEvents: 'none', zIndex: 99999, transform: 'translate(-50%,-50%)' }}
-      >
-        <svg viewBox="0 0 54 54" width="54" height="54">
-          <circle cx="27" cy="27" r="25" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5" />
-          <circle cx="27" cy="27" r="4" fill="rgba(255,255,255,0.8)" />
-        </svg>
-      </div>
+      
 
       {/* bottom strip */}
       <div className={`hi-bottom hi-bottom-${phase}`}>

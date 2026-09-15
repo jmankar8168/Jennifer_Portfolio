@@ -1794,3 +1794,62 @@ body {
     padding: 2px 6px;
   }
 }
+
+
+/* ==========================================================================
+   GLOBAL CUSTOM CURSOR (RING + CENTER DOT)
+   ========================================================================== */
+
+@media (pointer: fine) {
+  *, *::before, *::after, body, html, a, button, input, textarea, select {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999999;
+  overflow: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.custom-cursor-container.cursor-hidden {
+  opacity: 0;
+}
+
+.custom-cursor-container.cursor-visible {
+  opacity: 1;
+}
+
+.custom-cursor-ring,
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.custom-cursor-ring {
+  color: #ffffff;
+  mix-blend-mode: difference;
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.custom-cursor-dot {
+  color: #ffffff;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring-circle {
+  transition: stroke-width 0.3s ease;
+}
+
+.cursor-hover .cursor-ring-circle {
+  stroke-width: 2.4;
+}

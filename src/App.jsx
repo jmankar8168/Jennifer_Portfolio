@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Work from './pages/Work';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import CustomCursor from './components/CustomCursor';
 import './App.css';
 
 export default function App() {
@@ -15,6 +16,9 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      {/* ── Global Custom Ring & Dot Cursor ── */}
+      <CustomCursor />
+
       <Routes>
         <Route path="/" element={<Home theme={theme} setTheme={setTheme} />} />
         <Route path="/work" element={<Work />} />
