@@ -1797,7 +1797,7 @@ body {
 
 
 /* ==========================================================================
-   GLOBAL CUSTOM CURSOR (DYNAMIC DARK / LIGHT CONTRAST)
+   GLOBAL CUSTOM CURSOR (CSS MIX-BLEND-MODE DIFFERENCE)
    ========================================================================== */
 
 @media (pointer: fine) {
@@ -1833,27 +1833,19 @@ body {
   left: 0;
   pointer-events: none;
   will-change: transform;
-  transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  mix-blend-mode: difference;
 }
 
-/* Light cursor on top of dark areas */
-.custom-cursor-container.cursor-on-dark .custom-cursor-ring,
-.custom-cursor-container.cursor-on-dark .custom-cursor-dot {
-  color: #ffffff;
-  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+.custom-cursor-ring circle {
+  stroke: #ffffff;
+  transition: stroke-width 0.2s ease;
 }
 
-/* Dark cursor on top of light areas */
-.custom-cursor-container.cursor-on-light .custom-cursor-ring,
-.custom-cursor-container.cursor-on-light .custom-cursor-dot {
-  color: #0038ff;
-  filter: drop-shadow(0 0 4px rgba(0, 56, 255, 0.15));
+.custom-cursor-dot circle {
+  fill: #ffffff;
 }
 
-.cursor-ring-circle {
-  transition: stroke-width 0.25s ease;
-}
-
-.cursor-hover .cursor-ring-circle {
-  stroke-width: 2.5;
+/* Subtle, understated hover effect */
+.cursor-hover .custom-cursor-ring circle {
+  stroke-width: 2.6;
 }

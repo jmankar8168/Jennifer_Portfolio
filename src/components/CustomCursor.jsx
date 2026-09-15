@@ -10,44 +10,16 @@ export default function CustomCursor() {
   
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [isDarkBg, setIsDarkBg] = useState(true);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
 
-      const x = e.clientX;
-      const y = e.clientY;
-
-      const target = document.elementFromPoint(x, y);
+      const target = document.elementFromPoint(e.clientX, e.clientY);
       if (target) {
         const isClickable = target.closest('a, button, [role="button"], input, textarea, select, .clickable');
         setIsHovered(!!isClickable);
-
-        const darkParent = target.closest('.hi-overlay, .dark-bg, [data-dark="true"], .footer-banner, .btn-primary, .tag-dark');
-        
-        if (darkParent) {
-          setIsDarkBg(true);
-        } else {
-          try {
-            const bg = window.getComputedStyle(target).backgroundColor;
-            if (bg && bg.startsWith('rgb')) {
-              const parts = bg.match(/\d+/g);
-              if (parts && parts.length >= 3) {
-                const [r, g, b] = parts.map(Number);
-                const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-                if (brightness < 130 && bg !== 'rgba(0, 0, 0, 0)') {
-                  setIsDarkBg(true);
-                  return;
-                }
-              }
-            }
-          } catch (err) {
-            // fallback
-          }
-          setIsDarkBg(false);
-        }
       }
     };
 
@@ -64,6 +36,7 @@ export default function CustomCursor() {
     document.addEventListener('mouseenter', handleMouseEnter);
 
     const animate = () => {
+      // Smooth lerp for outer ring
       ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
       ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
 
@@ -72,7 +45,8 @@ export default function CustomCursor() {
       }
 
       if (ringRef.current) {
-        const scale = isHovered ? 1.4 : 1.0;
+        // Extremely subtle scale increase on hover (1.15x max)
+        const scale = isHovered ? 1.15 : 1.0;
         ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0px) translate(-50%, -50%) scale(${scale})`;
       }
 
@@ -93,19 +67,19 @@ export default function CustomCursor() {
 
   return (
     <div
-      className={`custom-cursor-container ${isVisible ? 'cursor-visible' : 'cursor-hidden'} ${isHovered ? 'cursor-hover' : ''} ${isDarkBg ? 'cursor-on-dark' : 'cursor-on-light'}`}
+      className={`custom-cursor-container ${isVisible ? 'cursor-visible' : 'cursor-hidden'} ${isHovered ? 'cursor-hover' : ''}`}
       aria-hidden="true"
     >
       {/* Outer Ring */}
       <div ref={ringRef} className="custom-cursor-ring">
-        <svg viewBox="0 0 52 52" width="52" height="52">
+        <svg viewBox="0 0 52 52" width="50" height="50">
           <circle
             cx="26"
             cy="26"
             r="23"
             fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
+            stroke="#ffffff"
+            strokeWidth="2"
             className="cursor-ring-circle"
           />
         </svg>
@@ -113,12 +87,12 @@ export default function CustomCursor() {
 
       {/* Inner Dot */}
       <div ref={dotRef} className="custom-cursor-dot">
-        <svg viewBox="0 0 16 16" width="12" height="12">
+        <svg viewBox="0 0 16 16" width="10" height="10">
           <circle
             cx="8"
             cy="8"
-            r="4.5"
-            fill="currentColor"
+            r="4"
+            fill="#ffffff"
             className="cursor-dot-circle"
           />
         </svg>
