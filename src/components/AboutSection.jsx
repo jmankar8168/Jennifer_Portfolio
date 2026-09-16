@@ -200,13 +200,13 @@ export default function AboutSection() {
             <HandDrawnArrow />
             <a
               id="about-linkedin-cta"
-              href="https://linkedin.com/in/jennifer"
+              href="https://www.linkedin.com/in/jennifer-mankar-733658363/"
               target="_blank"
               rel="noopener noreferrer"
               className="about-linkedin-btn"
             >
               <SearchIcon />
-              <span>linkedin.com/in/jennifer</span>
+              <span>linkedin.com/in/jennifer-mankar</span>
             </a>
           </div>
         </div>

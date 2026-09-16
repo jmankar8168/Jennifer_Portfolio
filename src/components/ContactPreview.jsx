@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Mail, Copy, Check, Sparkles } from 'lucide-react';
 
@@ -50,7 +50,7 @@ export default function ContactPreview() {
               <a href="https://github.com/jmankar8168" target="_blank" rel="noreferrer" className="social-pill-link">
                 GitHub &#8599;
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-pill-link">
+              <a href="https://www.linkedin.com/in/jennifer-mankar-733658363/" target="_blank" rel="noreferrer" className="social-pill-link">
                 LinkedIn &#8599;
               </a>
               <a href="https://behance.net" target="_blank" rel="noreferrer" className="social-pill-link">

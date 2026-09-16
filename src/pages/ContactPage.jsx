@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import Nav from '../components/Nav';
 import MarqueeTicker from '../components/MarqueeTicker';
 import GiantFooter from '../components/GiantFooter';
@@ -103,7 +103,7 @@ export default function ContactPage() {
                   <span>GitHub</span>
                   <ArrowUpRight size={14} />
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="social-btn">
+                <a href="https://www.linkedin.com/in/jennifer-mankar-733658363/" target="_blank" rel="noreferrer" className="social-btn">
                   <span>LinkedIn</span>
                   <ArrowUpRight size={14} />
                 </a>

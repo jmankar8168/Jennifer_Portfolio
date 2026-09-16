@@ -470,12 +470,12 @@ body {
   transform: translateY(2px);
 }
 
-/* Lime-green LinkedIn button (zero border / zero stroke) */
+/* Vibrant yellow LinkedIn button (zero border / zero stroke) */
 .about-linkedin-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: #C8F500;
+  background-color: #fde047;
   color: #111111;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.95rem;
