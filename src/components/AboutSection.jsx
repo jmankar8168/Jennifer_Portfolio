@@ -1,132 +1,131 @@
-import React from 'react';
+﻿import React from 'react';
+
+const SquigglyUnderline = () => (
+  <svg viewBox="0 0 240 20" width="240" height="20" className="about-squiggle" aria-hidden="true">
+    <path
+      d="M4 13 Q22 4 40 13 Q58 22 76 13 Q94 4 112 13 Q130 22 148 13 Q166 4 184 13 Q202 22 218 13 Q230 6 238 11"
+      stroke="#FF4B4B"
+      strokeWidth="3.5"
+      fill="none"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const SparkleSmall = ({ size = 18, color = '#064BE8' }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
+    <path
+      d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z"
+      fill={color}
+    />
+  </svg>
+);
+
+const SparkleX = ({ size = 14, color = '#064BE8' }) => (
+  <svg viewBox="0 0 20 20" width={size} height={size} aria-hidden="true">
+    <path d="M10 1 L10 19 M1 10 L19 10 M3 3 L17 17 M17 3 L3 17"
+      stroke={color} strokeWidth="2.2" strokeLinecap="round" fill="none" />
+  </svg>
+);
+
+const HandDrawnArrow = () => (
+  <svg viewBox="0 0 90 60" width="90" height="60" className="about-arrow" aria-hidden="true">
+    <path d="M8 50 Q30 20 72 18" stroke="#222222" strokeWidth="2.8" fill="none" strokeLinecap="round" />
+    <path d="M64 10 L74 18 L62 24" stroke="#222222" strokeWidth="2.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const PinIcon = () => (
+  <svg viewBox="0 0 16 16" width="13" height="13" fill="#777777" aria-hidden="true">
+    <path d="M8 1a4 4 0 0 1 4 4c0 2.5-4 9-4 9S4 7.5 4 5a4 4 0 0 1 4-4Zm0 5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
+  </svg>
+);
+
+const AtIcon = () => (
+  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#777777" strokeWidth="2" aria-hidden="true">
+    <circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/>
+  </svg>
+);
+
+const MailIcon = () => (
+  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#777777" strokeWidth="2" aria-hidden="true">
+    <rect width="20" height="16" x="2" y="4" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </svg>
+);
+
+const SearchIcon = () => (
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+  </svg>
+);
 
 export default function AboutSection() {
   return (
     <section id="about" className="jenni-about-section">
-      <div className="about-inner-grid">
-        {/* Left: Cobalt Blue Graphic Card with animated zigzag */}
-        <div className="about-blue-card">
-          <div className="blue-card-graphic-track">
-            <svg viewBox="0 0 340 460" className="blue-card-svg" width="100%" height="100%">
-              {/* Wavy hand-drawn zigzag path */}
-              <path
-                d="M 60 400 L 110 320 L 170 380 L 230 300 L 280 360"
-                stroke="#ffffff"
-                strokeWidth="24"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="none"
-              />
-              <path
-                d="M 60 400 L 110 320 L 170 380 L 230 300 L 280 360"
-                stroke="#0038ff"
-                strokeWidth="10"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="none"
-              />
-              {/* Badge Labels */}
-              <g transform="translate(40, 60)">
-                <rect width="130" height="34" rx="17" fill="#ffffff" />
-                <text x="65" y="22" textAnchor="middle" fill="#0038ff" fontWeight="800" fontSize="13" fontFamily="Space Grotesk">Architecture</text>
-              </g>
+      <div className="about-container">
 
-              <g transform="translate(180, 160)">
-                <rect width="140" height="34" rx="17" fill="#ffffff" />
-                <text x="70" y="22" textAnchor="middle" fill="#0038ff" fontWeight="800" fontSize="13" fontFamily="Space Grotesk">Motion Design</text>
-              </g>
+        {/* LEFT */}
+        <div className="about-left-col">
+          <span className="about-deco about-deco--star-tl">
+            <SparkleSmall size={22} color="#064BE8" />
+          </span>
 
-              <g transform="translate(30, 240)">
-                <rect width="145" height="34" rx="17" fill="#ffffff" />
-                <text x="72" y="22" textAnchor="middle" fill="#0038ff" fontWeight="800" fontSize="13" fontFamily="Space Grotesk">Product Design</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        {/* Right: Narrative statement & Character in blanket */}
-        <div className="about-content-col">
-          <div className="about-heading-box">
-            <h2 className="about-main-headline">
-              I MAKE DESIGNS <span className="eyes-emoji">&#128064;</span><br />
-              PEOPLE REMEMBER
-            </h2>
+          <div className="about-hello-wrap">
+            <h2 className="about-hello-heading">Hello!</h2>
+            <div className="about-squiggle-wrap"><SquigglyUnderline /></div>
           </div>
 
-          {/* Character wrapped in blanket with cozy illustrations */}
-          <div className="about-illustration-ensemble">
-            {/* Cup of tea */}
-            <div className="item-tea-cup">
-              <svg viewBox="0 0 60 60" width="46" height="46">
-                <rect x="12" y="22" width="30" height="26" rx="6" fill="#86efac" stroke="#111" strokeWidth="2.5" />
-                <path d="M42 26 Q54 32 42 42" stroke="#111" strokeWidth="2.5" fill="none" />
-                <path d="M22 16 Q26 12 24 8" stroke="#94a3b8" strokeWidth="2" fill="none" />
-                <path d="M30 16 Q34 12 32 8" stroke="#94a3b8" strokeWidth="2" fill="none" />
-              </svg>
-            </div>
-
-            {/* Blanket character */}
-            <div className="item-blanket-character">
-              <svg viewBox="0 0 200 240" width="180" height="216">
-                {/* Blanket Body */}
-                <path
-                  d="M50 80 Q100 60 150 80 Q170 140 165 220 L35 220 Q30 140 50 80 Z"
-                  fill="#cbd5e1"
-                  stroke="#111"
-                  strokeWidth="3.5"
-                />
-                {/* Star decorations on blanket */}
-                <path d="M70 120 L75 130 L85 130 L77 136 L80 146 L70 140 L60 146 L63 136 L55 130 L65 130 Z" fill="#facc15" />
-                <path d="M130 150 L135 160 L145 160 L137 166 L140 176 L130 170 L120 176 L123 166 L115 160 L125 160 Z" fill="#38bdf8" />
-                <path d="M90 175 L94 183 L102 183 L96 188 L98 196 L90 191 L82 196 L84 188 L78 183 L86 183 Z" fill="#facc15" />
-
-                {/* Head sticking out */}
-                <circle cx="100" cy="65" r="26" fill="#fde047" stroke="#111" strokeWidth="3" />
-                <path d="M80 60 Q100 40 120 60" stroke="#111" strokeWidth="6" strokeLinecap="round" fill="none" />
-                <circle cx="92" cy="66" r="2.5" fill="#111" />
-                <circle cx="108" cy="66" r="2.5" fill="#111" />
-                <path d="M97 74 Q100 77 103 74" stroke="#111" strokeWidth="2" strokeLinecap="round" fill="none" />
-              </svg>
-            </div>
-
-            {/* Ramen noodles with chopsticks */}
-            <div className="item-noodles-box">
-              <svg viewBox="0 0 70 70" width="56" height="56">
-                <path d="M15 30 L55 30 L50 60 L20 60 Z" fill="#60a5fa" stroke="#111" strokeWidth="2.5" />
-                <ellipse cx="35" cy="30" rx="20" ry="6" fill="#fef08a" stroke="#111" strokeWidth="2" />
-                <line x1="20" y1="12" x2="48" y2="35" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
-                <line x1="28" y1="10" x2="54" y2="33" stroke="#ef4444" strokeWidth="3" strokeLinecap="round" />
-              </svg>
-            </div>
-
-            {/* Retro Alarm Clock */}
-            <div className="item-alarm-clock">
-              <svg viewBox="0 0 60 60" width="48" height="48">
-                <circle cx="30" cy="34" r="18" fill="#fef08a" stroke="#111" strokeWidth="2.5" />
-                <circle cx="30" cy="34" r="13" fill="#ffffff" />
-                <line x1="30" y1="34" x2="30" y2="25" stroke="#111" strokeWidth="2" />
-                <line x1="30" y1="34" x2="38" y2="34" stroke="#111" strokeWidth="2" />
-                <path d="M18 18 L24 22" stroke="#111" strokeWidth="3" strokeLinecap="round" />
-                <path d="M42 18 L36 22" stroke="#111" strokeWidth="3" strokeLinecap="round" />
-              </svg>
-            </div>
-
-            {/* Mushroom Lamp */}
-            <div className="item-mushroom-lamp">
-              <svg viewBox="0 0 60 70" width="48" height="56">
-                <path d="M14 36 Q30 14 46 36 Z" fill="#fb923c" stroke="#111" strokeWidth="2.5" />
-                <circle cx="24" cy="28" r="3" fill="#ffffff" />
-                <circle cx="36" cy="24" r="3" fill="#ffffff" />
-                <rect x="26" y="36" width="8" height="20" rx="3" fill="#e2e8f0" stroke="#111" strokeWidth="2" />
-                <ellipse cx="30" cy="56" rx="14" ry="4" fill="#111" />
-              </svg>
-            </div>
-          </div>
-
-          <p className="about-bio-statement">
-            I'm Jenni, I used to design rooms you could walk into. Now I design rooms you scroll through. Same instincts, fewer building codes.
+          <p className="about-bio-text">
+            {"It's Jenni! A graphic design student majored in "}
+            <em>Visual Communication Design</em>
+            {" based in the Philippines. I'm interested in challenging myself to gain new knowledges and developing my creativity in fun and creative designs. I consider myself as a hard-working and easy to adapt. I hope my abilities able to contribute to the growth of your firm."}
           </p>
+
+          <div className="about-cta-row">
+            <HandDrawnArrow />
+            <a
+              id="about-linkedin-cta"
+              href="https://linkedin.com/in/jennifer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="about-linkedin-btn"
+            >
+              <SearchIcon />
+              <span>linkedin.com/in/jennifer</span>
+            </a>
+          </div>
+
+          <span className="about-deco about-deco--star-bl"><SparkleX size={16} color="#064BE8" /></span>
+          <span className="about-deco about-deco--plus-mid"><SparkleX size={12} color="#064BE8" /></span>
         </div>
+
+        {/* RIGHT */}
+        <div className="about-right-col">
+          <span className="about-deco about-deco--star-tr"><SparkleSmall size={16} color="#064BE8" /></span>
+          <span className="about-deco about-deco--x-card"><SparkleX size={12} color="#064BE8" /></span>
+
+          <div className="about-profile-card">
+            <div className="about-photo-wrap">
+              <div className="about-photo-placeholder">
+                <svg viewBox="0 0 120 150" width="120" height="150" style={{display:'block'}}>
+                  <rect width="120" height="150" rx="8" fill="#E8EBF0"/>
+                  <circle cx="60" cy="52" r="28" fill="#BEC3CC"/>
+                  <ellipse cx="60" cy="116" rx="42" ry="32" fill="#BEC3CC"/>
+                </svg>
+              </div>
+            </div>
+            <div className="about-card-info">
+              <p className="about-card-name">Jennifer <span className="about-card-dash">—</span> <span className="about-card-pronoun">she/her</span></p>
+              <ul className="about-card-details">
+                <li><PinIcon /><span>Philippines</span></li>
+                <li><AtIcon /><span>@jennifer_design</span></li>
+                <li><MailIcon /><span>jenni@email.com</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
