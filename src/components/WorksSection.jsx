@@ -1,125 +1,245 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useRef, useEffect } from 'react';
 
-export default function WorksSection() {
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [isHoveringSection, setIsHoveringSection] = useState(false);
-  const sectionRef = useRef(null);
-  
-  const mousePos = useRef({ x: 0, y: 0 });
-  const previewPos = useRef({ x: 0, y: 0 });
-  const previewRef = useRef(null);
-  const frameRef = useRef(null);
+/* ─── Project data ──────────────────────────────────────────── */
+const PROJECTS = [
+  {
+    id: 'p1',
+    title: 'Branding & Art Direction',
+    subtitle: 'Brand Systems · Visual Identity',
+    category: 'BRAND IP',
+    year: '2025',
+    duration: '2 Months',
+    stat: '360° Brand System',
+    deliverables: ['Brand Strategy', 'Visual Identity', 'Style Guide', 'Marketing Collateral'],
+    code: 'JM-01',
+    link: 'https://storybook-static-mauve-pi.vercel.app',
+    color: '#0038ff'
+  },
+  {
+    id: 'p2',
+    title: 'Publication Design',
+    subtitle: 'Editorial · Books & Print',
+    category: 'EDITORIAL',
+    year: '2025',
+    duration: '3 Months',
+    stat: '180+ Page Spread',
+    deliverables: ['Layout Design', 'Typography System', 'Cover Design', 'Print Production'],
+    code: 'JM-02',
+    link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
+    color: '#1b1b6e'
+  },
+  {
+    id: 'p3',
+    title: 'Motion Graphics',
+    subtitle: '3D Motion · Kinetic Type',
+    category: 'MOTION',
+    year: '2024',
+    duration: '6 Weeks',
+    stat: '12 Motion Assets',
+    deliverables: ['Title Sequence', 'Kinetic Typography', 'Logo Animation', 'Social Reels'],
+    code: 'JM-03',
+    link: 'https://github.com/jmankar8168/Jennifer_Portfolio',
+    color: '#0038ff'
+  },
+  {
+    id: 'p4',
+    title: 'Packaging Design',
+    subtitle: 'Physical Goods · Sustainable',
+    category: 'PACKAGING',
+    year: '2024',
+    duration: '5 Weeks',
+    stat: '8 SKU Variants',
+    deliverables: ['Structural Design', 'Surface Graphics', 'Prototype', 'Print-Ready Files'],
+    code: 'JM-04',
+    link: 'https://storybook-static-mauve-pi.vercel.app',
+    color: '#1b1b6e'
+  },
+  {
+    id: 'p5',
+    title: 'Art & Illustration',
+    subtitle: 'Digital Canvas · Character Design',
+    category: 'ILLUSTRATION',
+    year: '2025',
+    duration: '4 Weeks',
+    stat: '20+ Illustrations',
+    deliverables: ['Character Design', 'Scene Illustration', 'Icon Set', 'Digital Prints'],
+    code: 'JM-05',
+    link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
+    color: '#0038ff'
+  }
+];
 
-  // jenni's Work Categories with associated project assets & links
-  const categories = [
-    {
-      id: 'cat-1',
-      title: 'BRANDING & ART DIRECTION',
-      subtitle: 'Brand Systems • Visual Identity',
-      image: '/project-saas.jpg',
-      link: 'https://storybook-static-mauve-pi.vercel.app',
-      aspectRatio: '4/3'
-    },
-    {
-      id: 'cat-2',
-      title: 'PUBLICATION DESIGN',
-      subtitle: 'Editorial • Books & Print',
-      image: '/project-ai.jpg',
-      link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
-      aspectRatio: '3/4'
-    },
-    {
-      id: 'cat-3',
-      title: 'MOTION GRAPHICS',
-      subtitle: '3D Motion • Kinetic Type',
-      image: '/project-saas.jpg',
-      link: 'https://github.com/jmankar8168/Jennifer_Portfolio',
-      aspectRatio: '16/9'
-    },
-    {
-      id: 'cat-4',
-      title: 'PACKAGING DESIGN',
-      subtitle: 'Physical Goods • Sustainable Packaging',
-      image: '/project-ai.jpg',
-      link: 'https://storybook-static-mauve-pi.vercel.app',
-      aspectRatio: '1/1'
-    },
-    {
-      id: 'cat-5',
-      title: 'ART & ILLUSTRATION',
-      subtitle: 'Digital Canvas • Character Design',
-      image: '/project-saas.jpg',
-      link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
-      aspectRatio: '4/3'
-    }
-  ];
+/* ─── Barcode SVG ───────────────────────────────────────────── */
+function Barcode({ code }) {
+  // Simple deterministic barcode from code string
+  const bars = [];
+  for (let i = 0; i < 60; i++) {
+    const charCode = (code.charCodeAt(i % code.length) + i * 7) % 100;
+    const w = charCode < 30 ? 1 : charCode < 60 ? 2 : charCode < 80 ? 1 : 3;
+    const gap = charCode < 40 ? 1 : 2;
+    bars.push({ w, gap });
+  }
+  let x = 0;
+  const rects = bars.map((b, i) => {
+    const rect = <rect key={i} x={x} y={0} width={b.w} height={40} fill="#111116" />;
+    x += b.w + b.gap;
+    return rect;
+  });
+  return (
+    <svg width="100%" height="40" viewBox={`0 0 ${x} 40`} preserveAspectRatio="none" style={{ display: 'block' }}>
+      {rects}
+    </svg>
+  );
+}
 
-  // Handle smooth lerp position for floating thumbnail preview
+/* ─── Wavy edge SVG path (torn paper) ───────────────────────── */
+function WavyEdge({ flip = false }) {
+  return (
+    <svg
+      className={`ticket-wavy-edge ${flip ? 'flip' : ''}`}
+      viewBox="0 0 400 20"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0,10 C10,0 20,20 30,10 C40,0 50,20 60,10 C70,0 80,20 90,10 C100,0 110,20 120,10 C130,0 140,20 150,10 C160,0 170,20 180,10 C190,0 200,20 210,10 C220,0 230,20 240,10 C250,0 260,20 270,10 C280,0 290,20 300,10 C310,0 320,20 330,10 C340,0 350,20 360,10 C370,0 380,20 390,10 C400,0 400,10 400,10 L400,20 L0,20 Z"
+        fill="#f5f0e4"
+      />
+    </svg>
+  );
+}
+
+/* ─── Single Ticket Card ────────────────────────────────────── */
+function TicketCard({ project, index }) {
+  const [flipped, setFlipped] = useState(false);
+  const cardRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      
-      // Calculate mouse position relative to section bounds
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      mousePos.current = { x, y };
-
-      // Set initial lerp position on first move
-      if (previewPos.current.x === 0 && previewPos.current.y === 0) {
-        previewPos.current = { x, y };
-      }
-    };
-
-    const animate = () => {
-      // Lerp preview position towards mouse position (0.15 factor for tactile lag)
-      previewPos.current.x += (mousePos.current.x - previewPos.current.x) * 0.15;
-      previewPos.current.y += (mousePos.current.y - previewPos.current.y) * 0.15;
-
-      if (previewRef.current) {
-        // Position offset: place thumbnail slightly to bottom-right of cursor
-        const offsetX = 40;
-        const offsetY = 20;
-
-        // Viewport boundary collision prevention
-        const sectionWidth = sectionRef.current ? sectionRef.current.offsetWidth : window.innerWidth;
-        const finalX = Math.min(previewPos.current.x + offsetX, sectionWidth - 240);
-        const finalY = previewPos.current.y + offsetY;
-
-        previewRef.current.style.transform = `translate3d(${finalX}px, ${finalY}px, 0px)`;
-      }
-
-      frameRef.current = requestAnimationFrame(animate);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    frameRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 }
+    );
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => observer.disconnect();
   }, []);
 
+  return (
+    <div
+      ref={cardRef}
+      className={`project-ticket-scene ${visible ? 'ticket-visible' : ''}`}
+      style={{ '--delay': `${index * 0.13}s` }}
+      onClick={() => setFlipped(f => !f)}
+      onMouseEnter={() => setFlipped(true)}
+      onMouseLeave={() => setFlipped(false)}
+      role="button"
+      tabIndex={0}
+      aria-label={`View project: ${project.title}`}
+      onKeyDown={e => e.key === 'Enter' && setFlipped(f => !f)}
+    >
+      <div className={`ticket-flipper ${flipped ? 'is-flipped' : ''}`}>
+
+        {/* ── FRONT ─────────────────────────────────────────── */}
+        <div className="ticket-face ticket-front">
+          <WavyEdge />
+          <div className="ticket-body">
+            <div className="ticket-meta-row">
+              <span className="ticket-category">{project.category}</span>
+              <span className="ticket-year">{project.year}</span>
+            </div>
+            <h3 className="ticket-title">{project.title}</h3>
+            <p className="ticket-subtitle">{project.subtitle}</p>
+            <div className="ticket-divider" />
+            <div className="ticket-role-label">Creative direction, end-to-end</div>
+            <div className="ticket-stat">{project.stat}</div>
+            <div className="ticket-deliverables">
+              {project.deliverables.map(d => (
+                <div key={d} className="ticket-deliverable-row">
+                  <span className="ticket-deliverable-name">{d}</span>
+                  <span className="ticket-check">✓</span>
+                </div>
+              ))}
+            </div>
+            <div className="ticket-cta-row">
+              <span className="ticket-cta-label">CASE STUDY</span>
+              <span className="ticket-cta-arrow">→</span>
+            </div>
+          </div>
+          <div className="ticket-barcode-zone">
+            <Barcode code={project.code} />
+            <span className="ticket-barcode-label">{project.code} · GD · {project.year}</span>
+          </div>
+          <WavyEdge flip />
+        </div>
+
+        {/* ── BACK ──────────────────────────────────────────── */}
+        <div className="ticket-face ticket-back">
+          <WavyEdge />
+          <div className="ticket-body ticket-back-body">
+            <div className="ticket-back-header">
+              <span className="ticket-back-cat">{project.category}</span>
+              <span className="ticket-back-code">{project.code}</span>
+            </div>
+            <div className="ticket-back-title-wrap">
+              <span className="ticket-back-subtitle">PROJECT DETAILS</span>
+              <h3 className="ticket-back-title">{project.title}</h3>
+            </div>
+            <div className="ticket-back-stat-row">
+              <div className="ticket-back-stat-box">
+                <span className="tbs-label">DURATION</span>
+                <span className="tbs-value">{project.duration}</span>
+              </div>
+              <div className="ticket-back-stat-box">
+                <span className="tbs-label">YEAR</span>
+                <span className="tbs-value">{project.year}</span>
+              </div>
+            </div>
+            <div className="ticket-back-deliverables">
+              {project.deliverables.map(d => (
+                <div key={d} className="tbd-row">
+                  <span className="tbd-dot" />
+                  <span className="tbd-text">{d}</span>
+                </div>
+              ))}
+            </div>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ticket-back-cta"
+              onClick={e => e.stopPropagation()}
+            >
+              View Case Study →
+            </a>
+          </div>
+          <div className="ticket-barcode-zone">
+            <Barcode code={project.code + 'BACK'} />
+            <span className="ticket-barcode-label">{project.code} · {project.year}</span>
+          </div>
+          <WavyEdge flip />
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+/* ─── Main Section ──────────────────────────────────────────── */
+export default function WorksSection() {
   const marqueeText = [
     'ILLUSTRATION.', 'WEB DESIGN.', 'PACKAGING DESIGN.', 'BRANDING.', 'MOTION.', 'ART DIRECTION.'
   ];
 
   return (
-    <section
-      id="works"
-      ref={sectionRef}
-      className="works-typographic-section"
-      onMouseEnter={() => setIsHoveringSection(true)}
-      onMouseLeave={() => setIsHoveringSection(false)}
-    >
-      {/* ── LAYER 10: Oversized Section Heading (WORKS) ── */}
-      <div className="works-editorial-heading">
+    <section id="works" className="works-typographic-section">
+
+      {/* Ghost heading */}
+      <div className="works-editorial-heading" aria-hidden="true">
         <h2>(WORKS)</h2>
       </div>
 
-      {/* ── LAYER 20: Rotated Continuous Moving Diagonal Marquee Ribbon ── */}
-      <div className="diagonal-marquee-ribbon">
+      {/* Diagonal marquee ribbon */}
+      <div className="diagonal-marquee-ribbon" aria-hidden="true">
         <div className="marquee-track">
           {Array(4).fill(marqueeText).flat().map((item, idx) => (
             <span key={idx} className="marquee-item">
@@ -130,53 +250,20 @@ export default function WorksSection() {
         </div>
       </div>
 
-      {/* ── LAYER 30: Central Typographic Category List ── */}
-      <div className="works-category-container">
-        <div className="works-category-list">
-          {categories.map((cat, idx) => {
-            const isActive = activeCategory === idx;
-            return (
-              <a
-                key={cat.id}
-                href={cat.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`works-category-item ${isActive ? 'is-active' : 'is-inactive'}`}
-                onMouseEnter={() => setActiveCategory(idx)}
-                onClick={(e) => {
-                  // If on touch device and not active, first tap activates preview
-                  if ('ontouchstart' in window && !isActive) {
-                    e.preventDefault();
-                    setActiveCategory(idx);
-                  }
-                }}
-              >
-                <span className="category-title">{cat.title}</span>
-                <span className="category-arrow">↗</span>
-              </a>
-            );
-          })}
-        </div>
+      {/* Section label */}
+      <div className="works-section-label">
+        <span>Selected Work</span>
       </div>
 
-      {/* ── LAYER 40: Cursor-Following Floating Project Preview (pointer-events: none) ── */}
-      <div
-        ref={previewRef}
-        className={`cursor-project-preview-card ${isHoveringSection ? 'preview-visible' : 'preview-hidden'}`}
-      >
-        <div className="preview-image-wrapper">
-          <img
-            key={categories[activeCategory].id}
-            src={categories[activeCategory].image}
-            alt={categories[activeCategory].title}
-            className="preview-thumbnail-img"
-          />
-          <div className="preview-card-caption">
-            <span className="preview-card-title">{categories[activeCategory].title}</span>
-            <span className="preview-card-sub">{categories[activeCategory].subtitle}</span>
-          </div>
-        </div>
+      {/* Ticket row */}
+      <div className="ticket-carousel-row">
+        {PROJECTS.map((proj, i) => (
+          <TicketCard key={proj.id} project={proj} index={i} />
+        ))}
       </div>
+
+      {/* Hint */}
+      <p className="ticket-hint">hover or tap a ticket to inspect</p>
     </section>
   );
 }

@@ -2412,6 +2412,391 @@ body {
 }
 
 
+
+/* ==========================================================================
+   TICKET-STYLE WORKS SECTION
+   ========================================================================== */
+
+/* Section label */
+.works-section-label {
+  position: relative;
+  z-index: 30;
+  margin-bottom: 48px;
+  text-align: center;
+}
+.works-section-label span {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #fde047;
+  text-transform: uppercase;
+  border: 1.5px solid rgba(253, 224, 71, 0.45);
+  padding: 6px 18px;
+  border-radius: 9999px;
+}
+
+/* Ticket carousel */
+.ticket-carousel-row {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Hint text */
+.ticket-hint {
+  margin-top: 32px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 30;
+}
+
+/* ─── Ticket Scene (perspective container) ─────────────────── */
+.project-ticket-scene {
+  perspective: 900px;
+  width: 210px;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  /* Entry animation — starts offscreen below, fades in on scroll */
+  opacity: 0;
+  transform: translateY(60px) rotate(-4deg);
+  transition:
+    opacity 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s),
+    transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) var(--delay, 0s);
+}
+.project-ticket-scene.ticket-visible {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+}
+
+/* Alternate slight rotations for natural "spread" look */
+.project-ticket-scene:nth-child(odd) {
+  transform: translateY(60px) rotate(-3deg);
+}
+.project-ticket-scene:nth-child(odd).ticket-visible {
+  transform: translateY(0) rotate(-1.5deg);
+}
+.project-ticket-scene:nth-child(even).ticket-visible {
+  transform: translateY(0) rotate(1deg);
+}
+.project-ticket-scene:hover {
+  z-index: 10;
+}
+.project-ticket-scene:hover .ticket-flipper,
+.project-ticket-scene:focus .ticket-flipper {
+  transform: rotateY(180deg) scale(1.04) rotate(0deg) !important;
+}
+
+/* ─── Flipper ──────────────────────────────────────────────── */
+.ticket-flipper {
+  position: relative;
+  width: 100%;
+  /* height set via min-height on faces */
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+.ticket-flipper.is-flipped {
+  transform: rotateY(180deg) scale(1.04) rotate(0deg) !important;
+}
+
+/* ─── Ticket Faces ─────────────────────────────────────────── */
+.ticket-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background-color: #f5f0e4;   /* warm cream / off-white paper */
+  border-radius: 6px;
+  box-shadow:
+    0 8px 28px rgba(0, 0, 20, 0.35),
+    0 0 0 1.5px rgba(255,255,255,0.08) inset;
+  display: flex;
+  flex-direction: column;
+  overflow: visible; /* let wavy edges extend */
+}
+.ticket-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+
+/* ─── Wavy torn edge ───────────────────────────────────────── */
+.ticket-wavy-edge {
+  display: block;
+  width: 100%;
+  height: 20px;
+  flex-shrink: 0;
+}
+.ticket-wavy-edge.flip {
+  transform: scaleY(-1);
+}
+
+/* ─── Ticket Body ──────────────────────────────────────────── */
+.ticket-body {
+  padding: 10px 16px 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ticket-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ticket-category {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--cobalt);
+  text-transform: uppercase;
+}
+.ticket-year {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  color: #888;
+}
+
+.ticket-title {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111116;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.ticket-subtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  color: #666;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.ticket-divider {
+  border: none;
+  border-top: 1px dashed rgba(0, 56, 255, 0.3);
+  margin: 4px 0;
+}
+
+.ticket-role-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  color: #777;
+  text-align: center;
+}
+.ticket-stat {
+  font-family: 'Courier New', monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111116;
+  text-align: center;
+  letter-spacing: -0.02em;
+  margin: 2px 0;
+}
+
+/* Deliverables list */
+.ticket-deliverables {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+.ticket-deliverable-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ticket-deliverable-name {
+  font-family: 'Courier New', monospace;
+  font-size: 0.64rem;
+  color: #333;
+}
+.ticket-check {
+  font-size: 0.65rem;
+  color: var(--cobalt);
+  font-weight: 700;
+}
+
+/* CTA row */
+.ticket-cta-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+.ticket-cta-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--cobalt);
+  letter-spacing: 0.08em;
+}
+.ticket-cta-arrow {
+  font-size: 0.75rem;
+  color: var(--cobalt);
+}
+
+/* ─── Barcode zone ─────────────────────────────────────────── */
+.ticket-barcode-zone {
+  padding: 8px 14px 6px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.ticket-barcode-label {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.52rem;
+  color: #999;
+  text-align: center;
+  margin-top: 3px;
+  letter-spacing: 0.1em;
+}
+
+/* ─── Back face specific ───────────────────────────────────── */
+.ticket-back-body {
+  gap: 8px;
+}
+.ticket-back-header {
+  display: flex;
+  justify-content: space-between;
+}
+.ticket-back-cat {
+  font-family: 'Courier New', monospace;
+  font-size: 0.58rem;
+  color: var(--cobalt);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.ticket-back-code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.58rem;
+  color: #aaa;
+}
+.ticket-back-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ticket-back-subtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 0.55rem;
+  color: #aaa;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ticket-back-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #111116;
+  line-height: 1.2;
+  margin: 0;
+}
+.ticket-back-stat-row {
+  display: flex;
+  gap: 12px;
+}
+.ticket-back-stat-box {
+  flex: 1;
+  background: rgba(0, 56, 255, 0.06);
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tbs-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.5rem;
+  color: #aaa;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tbs-value {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #111116;
+}
+.ticket-back-deliverables {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tbd-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.tbd-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--cobalt);
+  flex-shrink: 0;
+}
+.tbd-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  color: #333;
+}
+.ticket-back-cta {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--cobalt);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+  padding: 5px 0;
+  border-bottom: 1.5px solid var(--cobalt);
+  transition: opacity 0.2s;
+}
+.ticket-back-cta:hover {
+  opacity: 0.7;
+}
+
+/* ─── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ticket-carousel-row {
+    gap: 18px;
+  }
+  .project-ticket-scene {
+    width: 185px;
+  }
+}
+@media (max-width: 600px) {
+  .ticket-carousel-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .project-ticket-scene {
+    width: 260px;
+  }
+  .project-ticket-scene:nth-child(odd).ticket-visible,
+  .project-ticket-scene:nth-child(even).ticket-visible {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
 /* ==========================================================================
    NATIVE JENNI HERO SECTION (100vh IN DOCUMENT FLOW)
    ========================================================================== */
