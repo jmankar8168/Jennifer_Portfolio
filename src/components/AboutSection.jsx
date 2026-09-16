@@ -1,88 +1,103 @@
 ﻿import React from "react";
 
-/* ─── Decorative doodles (unchanged) ────────────────────── */
+/* ─── Doodles (preserved) ────────────────────────────────── */
 const SquigglyUnderline = () => (
   <svg viewBox="0 0 240 20" width="240" height="20" className="about-squiggle" aria-hidden="true">
-    <path d="M4 13 Q22 4 40 13 Q58 22 76 13 Q94 4 112 13 Q130 22 148 13 Q166 4 184 13 Q202 22 218 13 Q230 6 238 11"
-      stroke="#FF4B4B" strokeWidth="3.5" fill="none" strokeLinecap="round" />
+    <path
+      d="M4 13 Q22 4 40 13 Q58 22 76 13 Q94 4 112 13 Q130 22 148 13 Q166 4 184 13 Q202 22 218 13 Q230 6 238 11"
+      stroke="#FF4B4B"
+      strokeWidth="3.5"
+      fill="none"
+      strokeLinecap="round"
+    />
   </svg>
 );
-const SparkleSmall = ({ size = 18, color = "#064BE8" }) => (
-  <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
-    <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z" fill={color} />
-  </svg>
-);
-const SparkleX = ({ size = 14, color = "#064BE8" }) => (
-  <svg viewBox="0 0 20 20" width={size} height={size} aria-hidden="true">
-    <path d="M10 1 L10 19 M1 10 L19 10 M3 3 L17 17 M17 3 L3 17"
-      stroke={color} strokeWidth="2.2" strokeLinecap="round" fill="none" />
-  </svg>
-);
+
 const HandDrawnArrow = () => (
   <svg viewBox="0 0 90 60" width="90" height="60" className="about-arrow" aria-hidden="true">
     <path d="M8 50 Q30 20 72 18" stroke="#222222" strokeWidth="2.8" fill="none" strokeLinecap="round" />
     <path d="M64 10 L74 18 L62 24" stroke="#222222" strokeWidth="2.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
+
 const SearchIcon = () => (
-  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-    <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
   </svg>
 );
 
-/* ─── ID Card sub-components ─────────────────────────────── */
+/* ─── ID Card Graphics ───────────────────────────────────── */
 const Starburst = () => (
-  <svg viewBox="0 0 54 54" width="52" height="52" aria-hidden="true">
+  <svg viewBox="0 0 54 54" width="70" height="70" aria-hidden="true">
     <polygon
       points="27,2 30,18 42,7 33,21 52,22 35,29 46,44 29,35 29,54 21,37 10,50 19,35 2,38 19,27 6,14 23,23"
-      fill="#1a3fd4" />
+      fill="#173ec8"
+    />
     <polygon
       points="27,6 30,18 40,9 33,21 50,23 35,29 44,42 29,34 28,52 21,37 11,48 19,35 4,37 19,27 7,16 23,23"
-      fill="#3a62f5" opacity="0.85" />
-    <circle cx="27" cy="27" r="6" fill="#1530b8" />
+      fill="#3b62f5"
+      opacity="0.9"
+    />
+    <circle cx="27" cy="27" r="7" fill="#132fa0" />
   </svg>
 );
 
 const BarcodeLines = () => (
-  <svg viewBox="0 0 130 18" width="130" height="18" aria-hidden="true">
-    <rect x="0" y="0" width="2" height="18" fill="white" opacity="0.8" />
-    <rect x="4" y="0" width="4" height="18" fill="white" opacity="0.8" />
-    <rect x="10" y="0" width="1" height="18" fill="white" opacity="0.8" />
-    <rect x="13" y="0" width="3" height="18" fill="white" opacity="0.8" />
-    <rect x="18" y="0" width="2" height="18" fill="white" opacity="0.8" />
-    <rect x="22" y="0" width="5" height="18" fill="white" opacity="0.8" />
-    <rect x="29" y="0" width="1" height="18" fill="white" opacity="0.8" />
-    <rect x="32" y="0" width="3" height="18" fill="white" opacity="0.8" />
-    <rect x="37" y="0" width="4" height="18" fill="white" opacity="0.8" />
-    <rect x="43" y="0" width="1" height="18" fill="white" opacity="0.8" />
-    <rect x="46" y="0" width="5" height="18" fill="white" opacity="0.8" />
-    <rect x="53" y="0" width="2" height="18" fill="white" opacity="0.8" />
-    <rect x="57" y="0" width="3" height="18" fill="white" opacity="0.8" />
-    <rect x="62" y="0" width="1" height="18" fill="white" opacity="0.8" />
-    <rect x="65" y="0" width="4" height="18" fill="white" opacity="0.8" />
-    <rect x="71" y="0" width="2" height="18" fill="white" opacity="0.8" />
-    <rect x="75" y="0" width="5" height="18" fill="white" opacity="0.8" />
-    <rect x="82" y="0" width="1" height="18" fill="white" opacity="0.8" />
-    <rect x="85" y="0" width="3" height="18" fill="white" opacity="0.8" />
-    <rect x="90" y="0" width="2" height="18" fill="white" opacity="0.8" />
-    <rect x="94" y="0" width="4" height="18" fill="white" opacity="0.8" />
-    <rect x="100" y="0" width="1" height="18" fill="white" opacity="0.8" />
-    <rect x="103" y="0" width="5" height="18" fill="white" opacity="0.8" />
-    <rect x="110" y="0" width="2" height="18" fill="white" opacity="0.8" />
-    <rect x="114" y="0" width="3" height="18" fill="white" opacity="0.8" />
-    <rect x="119" y="0" width="4" height="18" fill="white" opacity="0.8" />
-    <rect x="125" y="0" width="2" height="18" fill="white" opacity="0.8" />
-    <rect x="129" y="0" width="1" height="18" fill="white" opacity="0.8" />
+  <svg viewBox="0 0 240 28" className="id-barcode-svg" aria-hidden="true">
+    <rect x="0" y="0" width="3" height="28" fill="white" opacity="0.85" />
+    <rect x="5" y="0" width="6" height="28" fill="white" opacity="0.85" />
+    <rect x="14" y="0" width="2" height="28" fill="white" opacity="0.85" />
+    <rect x="19" y="0" width="5" height="28" fill="white" opacity="0.85" />
+    <rect x="27" y="0" width="3" height="28" fill="white" opacity="0.85" />
+    <rect x="33" y="0" width="7" height="28" fill="white" opacity="0.85" />
+    <rect x="43" y="0" width="2" height="28" fill="white" opacity="0.85" />
+    <rect x="48" y="0" width="4" height="28" fill="white" opacity="0.85" />
+    <rect x="55" y="0" width="6" height="28" fill="white" opacity="0.85" />
+    <rect x="64" y="0" width="2" height="28" fill="white" opacity="0.85" />
+    <rect x="69" y="0" width="7" height="28" fill="white" opacity="0.85" />
+    <rect x="79" y="0" width="3" height="28" fill="white" opacity="0.85" />
+    <rect x="85" y="0" width="4" height="28" fill="white" opacity="0.85" />
+    <rect x="92" y="0" width="2" height="28" fill="white" opacity="0.85" />
+    <rect x="97" y="0" width="6" height="28" fill="white" opacity="0.85" />
+    <rect x="106" y="0" width="3" height="28" fill="white" opacity="0.85" />
+    <rect x="112" y="0" width="7" height="28" fill="white" opacity="0.85" />
+    <rect x="122" y="0" width="2" height="28" fill="white" opacity="0.85" />
+    <rect x="127" y="0" width="4" height="28" fill="white" opacity="0.85" />
+    <rect x="134" y="0" width="3" height="28" fill="white" opacity="0.85" />
+    <rect x="140" y="0" width="6" height="28" fill="white" opacity="0.85" />
+    <rect x="149" y="0" width="2" height="28" fill="white" opacity="0.85" />
+    <rect x="154" y="0" width="7" height="28" fill="white" opacity="0.85" />
+    <rect x="164" y="0" width="3" height="28" fill="white" opacity="0.85" />
+    <rect x="170" y="0" width="5" height="28" fill="white" opacity="0.85" />
+    <rect x="178" y="0" width="2" height="28" fill="white" opacity="0.85" />
+    <rect x="183" y="0" width="6" height="28" fill="white" opacity="0.85" />
+    <rect x="192" y="0" width="3" height="28" fill="white" opacity="0.85" />
+    <rect x="198" y="0" width="7" height="28" fill="white" opacity="0.85" />
+    <rect x="208" y="0" width="2" height="28" fill="white" opacity="0.85" />
+    <rect x="213" y="0" width="5" height="28" fill="white" opacity="0.85" />
+    <rect x="221" y="0" width="3" height="28" fill="white" opacity="0.85" />
+    <rect x="227" y="0" width="6" height="28" fill="white" opacity="0.85" />
+    <rect x="236" y="0" width="3" height="28" fill="white" opacity="0.85" />
   </svg>
 );
 
-/* ─── Portfolio ID Card ──────────────────────────────────── */
+const SmileyIcon = () => (
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+    <circle cx="16" cy="16" r="14" fill="#a3e635" />
+    <circle cx="11" cy="13" r="2.2" fill="#111111" />
+    <circle cx="21" cy="13" r="2.2" fill="#111111" />
+    <path d="M10 19 Q16 26 22 19" stroke="#111111" strokeWidth="2.4" strokeLinecap="round" fill="none" />
+  </svg>
+);
+
+/* ─── Portfolio ID Card (Large 3D Flip) ──────────────────── */
 function PortfolioIDCard() {
   return (
     <div className="id-card-scene" tabIndex={0} aria-label="Portfolio ID Card - hover to flip and discover more">
       <div className="id-card-flipper">
 
-        {/* ══ FRONT ══ */}
+        {/* ── FRONT ── */}
         <div className="id-card-face id-card-front">
           <div className="id-card-noise" aria-hidden="true" />
           <div className="id-punch-hole" aria-hidden="true" />
@@ -107,11 +122,11 @@ function PortfolioIDCard() {
               {/* Right visual */}
               <div className="id-visual-col">
                 <div className="id-photo-box">
-                  <svg viewBox="0 0 68 80" width="68" height="80">
-                    <rect width="68" height="80" rx="3" fill="#1535a8" />
-                    <circle cx="34" cy="30" r="16" fill="#2448c0" />
-                    <ellipse cx="34" cy="65" rx="24" ry="17" fill="#2448c0" />
-                    <text x="34" y="48" textAnchor="middle" fill="rgba(255,255,255,0.25)" fontSize="7" fontFamily="monospace">PHOTO</text>
+                  <svg viewBox="0 0 110 130" width="100%" height="100%">
+                    <rect width="110" height="130" fill="#1536a0" />
+                    <circle cx="55" cy="46" r="24" fill="#2449c2" />
+                    <ellipse cx="55" cy="108" rx="38" ry="26" fill="#2449c2" />
+                    <text x="55" y="74" textAnchor="middle" fill="rgba(255,255,255,0.32)" fontSize="9" fontFamily="monospace" letterSpacing="0.12em">PORTRAIT</text>
                   </svg>
                 </div>
                 <div className="id-starburst-wrap">
@@ -123,7 +138,7 @@ function PortfolioIDCard() {
           </div>
         </div>
 
-        {/* ══ BACK ══ */}
+        {/* ── BACK ── */}
         <div className="id-card-face id-card-back">
           <div className="id-card-noise" aria-hidden="true" />
           <div className="id-punch-hole" aria-hidden="true" />
@@ -132,10 +147,19 @@ function PortfolioIDCard() {
             {/* Stickers left cluster */}
             <div className="id-stickers-wrap" aria-hidden="true">
               <div className="id-stk id-stk-blue">YOUTH</div>
-              <div className="id-stk id-stk-red">YOU WILL<br />NEVER<br />REGRET ✌</div>
-              <div className="id-stk id-stk-yellow"><span className="id-stk-sm">do what makes you</span><br /><span className="id-stk-lg">HAPPY</span></div>
-              <div className="id-stk id-stk-green">JUST<br />PEACHY ✿</div>
-              <div className="id-stk id-stk-smiley">☺</div>
+              <div className="id-stk id-stk-red">
+                <span>YOU WILL<br />NEVER REGRET<br />BEING KIND</span>
+              </div>
+              <div className="id-stk id-stk-yellow">
+                <span className="id-stk-sm">do what makes you</span>
+                <span className="id-stk-lg">HAPPY</span>
+              </div>
+              <div className="id-stk id-stk-peach">
+                <span className="id-stk-peach-txt">JUST<br />PEACHY</span>
+              </div>
+              <div className="id-stk id-stk-smiley">
+                <SmileyIcon />
+              </div>
             </div>
             {/* Right CTA text */}
             <div className="id-back-cta">
@@ -144,7 +168,7 @@ function PortfolioIDCard() {
             {/* Barcode bottom */}
             <div className="id-barcode-row" aria-hidden="true">
               <BarcodeLines />
-              <span className="id-barcode-num">0 35545 62335 78 1</span>
+              <span className="id-barcode-num">0 35545 62336 78 1</span>
             </div>
           </div>
         </div>
@@ -154,17 +178,14 @@ function PortfolioIDCard() {
   );
 }
 
-/* ─── Main About Section ─────────────────────────────────── */
+/* ─── Main About Section (Clean & Open Layout) ─────────────── */
 export default function AboutSection() {
   return (
     <section id="about" className="jenni-about-section">
       <div className="about-container">
 
-        {/* LEFT */}
+        {/* LEFT: Heading, Squiggle, Intro copy, and clean Lime LinkedIn CTA */}
         <div className="about-left-col">
-          <span className="about-deco about-deco--star-tl">
-            <SparkleSmall size={22} color="#064BE8" />
-          </span>
           <div className="about-hello-wrap">
             <h2 className="about-hello-heading">Hello!</h2>
             <div className="about-squiggle-wrap"><SquigglyUnderline /></div>
@@ -176,20 +197,21 @@ export default function AboutSection() {
           </p>
           <div className="about-cta-row">
             <HandDrawnArrow />
-            <a id="about-linkedin-cta" href="https://linkedin.com/in/jennifer"
-              target="_blank" rel="noopener noreferrer" className="about-linkedin-btn">
+            <a
+              id="about-linkedin-cta"
+              href="https://linkedin.com/in/jennifer"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="about-linkedin-btn"
+            >
               <SearchIcon />
               <span>linkedin.com/in/jennifer</span>
             </a>
           </div>
-          <span className="about-deco about-deco--star-bl"><SparkleX size={16} color="#064BE8" /></span>
-          <span className="about-deco about-deco--plus-mid"><SparkleX size={12} color="#064BE8" /></span>
         </div>
 
-        {/* RIGHT — Portfolio ID Card */}
+        {/* RIGHT: Large Portfolio ID Card with 3D Flip */}
         <div className="about-right-col">
-          <span className="about-deco about-deco--star-tr"><SparkleSmall size={16} color="#064BE8" /></span>
-          <span className="about-deco about-deco--x-card"><SparkleX size={12} color="#064BE8" /></span>
           <PortfolioIDCard />
         </div>
 
