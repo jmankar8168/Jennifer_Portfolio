@@ -192,9 +192,9 @@ export default function AboutSection() {
             <div className="about-squiggle-wrap"><SquigglyUnderline /></div>
           </div>
           <p className="about-bio-text">
-            {"It's Jenni! A graphic design student majored in "}
-            <em>Visual Communication Design</em>
-            {" based in the Philippines. I'm interested in challenging myself to gain new knowledges and developing my creativity in fun and creative designs. I consider myself as a hard-working and easy to adapt. I hope my abilities able to contribute to the growth of your firm."}
+            {"It's Jenni! A design student majored in "}
+            <em>Communication Design</em>
+            {" based in Mumbai. I'm interested in challenging myself to gain new knowledges and developing my creativity in fun and creative designs. I consider myself as hard-working and easy to adapt."}
           </p>
           <div className="about-cta-row">
             <HandDrawnArrow />
