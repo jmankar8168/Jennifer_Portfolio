@@ -189,7 +189,6 @@ export default function AboutSection() {
         <div className="about-left-col">
           <div className="about-hello-wrap">
             <h2 className="about-hello-heading">Hello!</h2>
-            <div className="about-squiggle-wrap"><SquigglyUnderline /></div>
           </div>
           <p className="about-bio-text">
             {"It's Jenni! A design student majored in "}
