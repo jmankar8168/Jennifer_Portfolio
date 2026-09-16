@@ -728,11 +728,23 @@ body {
 .id-photo-box {
   width: 100%;
   aspect-ratio: 0.85 / 1;
-  border: 2px solid rgba(255, 255, 255, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: 6px;
   overflow: hidden;
   line-height: 0;
   display: block;
+  background-color: #1a3cb8;
+  position: relative;
+}
+
+.id-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .id-starburst-wrap {

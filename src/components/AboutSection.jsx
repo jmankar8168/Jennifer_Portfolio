@@ -1,4 +1,5 @@
 ﻿import React from "react";
+import idPhoto from "../assets/jennifer-id-photo.jpg";
 
 /* ─── Doodles (preserved) ────────────────────────────────── */
 const SquigglyUnderline = () => (
@@ -122,12 +123,12 @@ function PortfolioIDCard() {
               {/* Right visual */}
               <div className="id-visual-col">
                 <div className="id-photo-box">
-                  <svg viewBox="0 0 110 130" width="100%" height="100%">
-                    <rect width="110" height="130" fill="#1536a0" />
-                    <circle cx="55" cy="46" r="24" fill="#2449c2" />
-                    <ellipse cx="55" cy="108" rx="38" ry="26" fill="#2449c2" />
-                    <text x="55" y="74" textAnchor="middle" fill="rgba(255,255,255,0.32)" fontSize="9" fontFamily="monospace" letterSpacing="0.12em">PORTRAIT</text>
-                  </svg>
+                  <img
+                    src={idPhoto}
+                    alt="Jennifer - ID Photo"
+                    className="id-photo-img"
+                    loading="eager"
+                  />
                 </div>
                 <div className="id-starburst-wrap">
                   <Starburst />
