@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@700;800;900&family=Playfair+Display:ital,wght@1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@700;800;900&family=Playfair+Display:ital,wght@1,700;1,800;1,900&display=swap');
 
 :root {
   --cobalt: #0038ff;
@@ -392,7 +392,8 @@ body {
 .jenni-about-section {
   background: transparent !important;
   background-color: transparent !important;
-  padding: 80px 48px 90px;
+  padding: 80px 48px 120px;
+  margin-bottom: clamp(100px, 14vh, 180px); /* Increased vertical gap to Selected Work */
   position: relative;
   overflow: visible;
 }
@@ -2890,6 +2891,387 @@ body {
   }
 }
 
+/* ==========================================================================
+   SELECTED WORK — EXACT REFERENCE IMPLEMENTATION WITH BALANCED VIEWPORT SPACING
+   ========================================================================== */
 
+/* Full-viewport breakout scroll container */
+.works-scroll-container {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  height: 400vh;
+  box-sizing: border-box;
+}
 
+/* Sticky frame locking viewport */
+.works-sticky-frame {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2337b5;
+}
 
+/* Full blue panel canvas: vertically centered with deliberate top & bottom breathing room */
+.works-blue-panel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2337b5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Perfectly balanced and vertically centered in viewport */
+  padding-top: clamp(65px, 8.5vh, 88px); /* Clear breathing room below fixed navbar */
+  padding-bottom: clamp(35px, 5vh, 65px); /* Generous visible breathing room at the bottom */
+  padding-left: clamp(20px, 4vw, 48px);
+  padding-right: clamp(20px, 4vw, 48px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Centered heading block with intentional breathing room */
+.works-heading-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 30;
+  pointer-events: none;
+  width: 100%;
+  max-width: 800px;
+  flex-shrink: 0;
+  margin-bottom: clamp(22px, 3.2vh, 36px); /* Generous spacing between "Selected Work" and the project card */
+}
+
+/* Noticeably smaller main heading: does not dominate viewport */
+.works-main-h2 {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(1.45rem, 2.1vw, 2.15rem); /* Noticeably smaller, deliberate and editorial */
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.38; /* Comfortable breathing room between the two lines */
+  letter-spacing: -0.015em;
+  margin: 0;
+  margin-bottom: clamp(14px, 2vh, 20px); /* Comfortable breathing room above "Selected Work" */
+}
+
+/* Sub-label */
+.works-section-label {
+  font-family: 'Space Grotesk', var(--font-mono-grotesk), monospace;
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  font-weight: 700;
+  color: #fde047; /* Signature Yellow from Hero */
+  letter-spacing: 0.12em;
+  text-transform: capitalize;
+  display: inline-block;
+  padding: 2px 10px;
+}
+
+/* Interactive stage: sized to fit card height cleanly */
+.works-stage {
+  position: relative;
+  width: 100%;
+  height: 440px; /* Fixed height container matching card so flex centering is perfectly balanced */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Stacked Receipt Cards: anchored at top: 0 in stage, horizontally centered */
+.sw-receipt-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(300px, 25vw, 345px);
+  max-width: 90vw;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.sw-receipt-paper {
+  position: relative;
+  background-color: #fbf5dc;
+  border-radius: 4px;
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+.sw-receipt-card:hover .sw-receipt-paper {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.22);
+}
+
+.sw-receipt-body {
+  padding: 16px 24px 10px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.sw-r-title {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(1.3rem, 1.5vw, 1.45rem);
+  font-weight: 800;
+  color: #0038ff;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.sw-r-version {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #0038ff;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+.sw-r-divider {
+  width: 100%;
+  border-top: 1px dashed rgba(0, 56, 255, 0.35);
+  margin: 6px 0 10px;
+}
+
+.sw-r-role {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #333333;
+  text-align: center;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.sw-r-stat {
+  font-family: var(--font-sans, -apple-system, sans-serif);
+  font-size: clamp(1.2rem, 1.4vw, 1.35rem);
+  font-weight: 800;
+  color: #111111;
+  text-align: center;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+
+.sw-r-delivs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.sw-r-deliv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.74rem;
+  color: #222222;
+}
+
+.sw-r-deliv-name {
+  font-weight: 500;
+}
+
+.sw-r-check {
+  color: #0038ff;
+  font-weight: 700;
+}
+
+.sw-r-cta {
+  display: block;
+  text-align: right;
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #0038ff;
+  text-decoration: none;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.sw-r-cta:hover {
+  transform: translateX(3px);
+  color: #0022aa;
+}
+
+.sw-receipt-barcode-box {
+  padding: 4px 24px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.sw-r-code-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #0038ff;
+  opacity: 0.75;
+}
+
+/* Hover Context Layer (Left title, polaroids, right arrow) */
+.works-hover-context {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.works-hover-context.is-active {
+  opacity: 1;
+}
+
+/* Left Headline & Tagline */
+.whc-left-text {
+  position: absolute;
+  left: calc(50% - 460px);
+  top: 15px;
+  max-width: 260px;
+  transform: translateX(-20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.works-hover-context.is-active .whc-left-text {
+  transform: translateX(0);
+}
+
+.whc-headline {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(1.8rem, 2.2vw, 2.15rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #fde047; /* Yellow from Hero */
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  white-space: pre-line;
+}
+
+.whc-subline {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.4;
+  opacity: 0.92;
+}
+
+/* Polaroids */
+.whc-polaroid {
+  position: absolute;
+  pointer-events: none;
+}
+
+.whc-polaroid-left {
+  left: calc(50% - 465px);
+  top: 175px;
+  width: 235px;
+  transform: rotate(-6deg) scale(0.92);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.works-hover-context.is-active .whc-polaroid-left {
+  transform: rotate(-6deg) scale(1);
+}
+
+.whc-polaroid-right {
+  left: calc(50% + 215px);
+  top: 0px;
+  width: 255px;
+  transform: rotate(5deg) scale(0.92);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.works-hover-context.is-active .whc-polaroid-right {
+  transform: rotate(5deg) scale(1);
+}
+
+.whc-polaroid-inner {
+  background: #ffffff;
+  padding: 7px 7px 20px 7px;
+  border-radius: 4px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.whc-polaroid-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Bottom-Right Arrow */
+.whc-arrow-right {
+  position: absolute;
+  left: calc(50% + 205px);
+  top: 310px;
+  transform: translateX(-15px);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.works-hover-context.is-active .whc-arrow-right {
+  transform: translateX(0);
+}
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 1024px) {
+  .whc-left-text,
+  .whc-polaroid,
+  .whc-arrow-right {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .works-blue-panel {
+    padding-top: 55px;
+    padding-bottom: 25px;
+  }
+  .works-heading-block {
+    margin-bottom: 18px;
+  }
+  .works-main-h2 {
+    font-size: 1.35rem;
+    line-height: 1.32;
+    margin-bottom: 10px;
+  }
+  .works-section-label {
+    font-size: 0.85rem;
+  }
+  .works-stage {
+    height: 390px;
+  }
+  .sw-receipt-card {
+    width: 280px;
+  }
+  .sw-receipt-body {
+    padding: 12px 16px 8px;
+  }
+  .sw-r-title {
+    font-size: 1.2rem;
+  }
+  .sw-r-stat {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+  .sw-r-delivs {
+    margin-bottom: 10px;
+    gap: 3px;
+  }
+}

@@ -6,8 +6,7 @@ const SquigglyUnderline = () => (
   <svg viewBox="0 0 240 20" width="240" height="20" className="about-squiggle" aria-hidden="true">
     <path
       d="M4 13 Q22 4 40 13 Q58 22 76 13 Q94 4 112 13 Q130 22 148 13 Q166 4 184 13 Q202 22 218 13 Q230 6 238 11"
-      stroke="#FF4B4B"
-      strokeWidth="3.5"
+      stroke="#fde047" strokeWidth="4"
       fill="none"
       strokeLinecap="round"
     />

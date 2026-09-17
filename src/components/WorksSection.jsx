@@ -1,269 +1,323 @@
-﻿import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-/* ─── Project data ──────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   PROJECT DATA (Matching Reference Screenshots & Identity)
+   ═══════════════════════════════════════════════════════════ */
 const PROJECTS = [
   {
-    id: 'p1',
-    title: 'Branding & Art Direction',
-    subtitle: 'Brand Systems · Visual Identity',
-    category: 'BRAND IP',
-    year: '2025',
-    duration: '2 Months',
+    id: 'ihss',
+    headline: 'From Zero to\nSummit',
+    subline: 'Brand IP · Research · Event · Two editions',
+    title: 'Indian Healthy\nSnacking Summit',
+    version: '1.0 & 2.0',
+    roleLabel: 'Creative direction, end-to-end',
+    stat: '13,000+ surveyed',
+    deliverables: [
+      'User Research',
+      'Brand Identity',
+      'Website',
+      '65-page report',
+      'Data Visualization',
+    ],
+    code: 'IHSS · DVJ · 2026',
+    link: 'https://storybook-static-mauve-pi.vercel.app',
+    leftImage: '/ihss-stage.jpg',
+    rightImage: '/ihss-deck.jpg',
+  },
+  {
+    id: 'farmley',
+    headline: 'Farmley.com\nRedesign',
+    subline: 'D2C · House of brands · Shopify',
+    title: 'Farmley.com Redesign',
+    version: 'D2C & E-Commerce',
+    roleLabel: 'Sr. Visual Designer · owned end-to-end',
+    stat: '47 days · brief to live MVP',
+    deliverables: [
+      'UX',
+      'Brand system',
+      'Shopify build',
+    ],
+    code: 'FARMLEY · DVJ · 2026',
+    link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
+    leftImage: '/farmley-figma.jpg',
+    rightImage: '/farmley-store.jpg',
+  },
+  {
+    id: 'circle',
+    headline: 'Circle Brand\nSystem',
+    subline: 'Visual Identity · Digital Design · Guidelines',
+    title: 'Circle Brand IP',
+    version: 'Identity 2.0',
+    roleLabel: 'Brand Identity & Visual Design Lead',
     stat: '360° Brand System',
-    deliverables: ['Brand Strategy', 'Visual Identity', 'Style Guide', 'Marketing Collateral'],
-    code: 'JM-01',
-    link: 'https://storybook-static-mauve-pi.vercel.app',
-    color: '#0038ff'
-  },
-  {
-    id: 'p2',
-    title: 'Publication Design',
-    subtitle: 'Editorial · Books & Print',
-    category: 'EDITORIAL',
-    year: '2025',
-    duration: '3 Months',
-    stat: '180+ Page Spread',
-    deliverables: ['Layout Design', 'Typography System', 'Cover Design', 'Print Production'],
-    code: 'JM-02',
-    link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
-    color: '#1b1b6e'
-  },
-  {
-    id: 'p3',
-    title: 'Motion Graphics',
-    subtitle: '3D Motion · Kinetic Type',
-    category: 'MOTION',
-    year: '2024',
-    duration: '6 Weeks',
-    stat: '12 Motion Assets',
-    deliverables: ['Title Sequence', 'Kinetic Typography', 'Logo Animation', 'Social Reels'],
-    code: 'JM-03',
+    deliverables: [
+      'Visual Identity',
+      'Design Guidelines',
+      'Design System',
+      'Marketing Suite',
+    ],
+    code: 'CIRCLE · DVJ · 2026',
     link: 'https://github.com/jmankar8168/Jennifer_Portfolio',
-    color: '#0038ff'
+    leftImage: '/project-saas.jpg',
+    rightImage: '/project-ai.jpg',
   },
-  {
-    id: 'p4',
-    title: 'Packaging Design',
-    subtitle: 'Physical Goods · Sustainable',
-    category: 'PACKAGING',
-    year: '2024',
-    duration: '5 Weeks',
-    stat: '8 SKU Variants',
-    deliverables: ['Structural Design', 'Surface Graphics', 'Prototype', 'Print-Ready Files'],
-    code: 'JM-04',
-    link: 'https://storybook-static-mauve-pi.vercel.app',
-    color: '#1b1b6e'
-  },
-  {
-    id: 'p5',
-    title: 'Art & Illustration',
-    subtitle: 'Digital Canvas · Character Design',
-    category: 'ILLUSTRATION',
-    year: '2025',
-    duration: '4 Weeks',
-    stat: '20+ Illustrations',
-    deliverables: ['Character Design', 'Scene Illustration', 'Icon Set', 'Digital Prints'],
-    code: 'JM-05',
-    link: 'https://jmankar8168.github.io/Jennifer_Portfolio/',
-    color: '#0038ff'
-  }
 ];
 
-/* ─── Barcode SVG ───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   PROCEDURAL BARCODE
+   ═══════════════════════════════════════════════════════════ */
 function Barcode({ code }) {
-  // Simple deterministic barcode from code string
-  const bars = [];
-  for (let i = 0; i < 60; i++) {
-    const charCode = (code.charCodeAt(i % code.length) + i * 7) % 100;
-    const w = charCode < 30 ? 1 : charCode < 60 ? 2 : charCode < 80 ? 1 : 3;
-    const gap = charCode < 40 ? 1 : 2;
-    bars.push({ w, gap });
-  }
-  let x = 0;
-  const rects = bars.map((b, i) => {
-    const rect = <rect key={i} x={x} y={0} width={b.w} height={40} fill="#111116" />;
-    x += b.w + b.gap;
-    return rect;
-  });
+  const bars = React.useMemo(() => {
+    const list = [];
+    let x = 0;
+    for (let i = 0; i < 52; i++) {
+      const n = (code.charCodeAt(i % code.length) * 17 + i * 29) % 100;
+      const w = n < 25 ? 1 : n < 60 ? 2 : n < 80 ? 1.5 : 3;
+      const gap = n < 40 ? 1.5 : 1;
+      list.push({ x, w });
+      x += w + gap;
+    }
+    return { list, totalW: x };
+  }, [code]);
+
   return (
-    <svg width="100%" height="40" viewBox={`0 0 ${x} 40`} preserveAspectRatio="none" style={{ display: 'block' }}>
-      {rects}
+    <svg
+      width="100%"
+      height="30"
+      viewBox={`0 0 ${bars.totalW} 30`}
+      preserveAspectRatio="none"
+      style={{ display: 'block' }}
+    >
+      {bars.list.map((b, i) => (
+        <rect key={i} x={b.x} y={0} width={b.w} height={30} fill="#0038ff" opacity="0.8" />
+      ))}
     </svg>
   );
 }
 
-/* ─── Wavy edge SVG path (torn paper) ───────────────────────── */
-function WavyEdge({ flip = false }) {
+/* ═══════════════════════════════════════════════════════════
+   SERRATED / ZIG-ZAG TICKET EDGE
+   ═══════════════════════════════════════════════════════════ */
+function SerratedEdge({ flipped = false }) {
   return (
     <svg
-      className={`ticket-wavy-edge ${flip ? 'flip' : ''}`}
-      viewBox="0 0 400 20"
+      viewBox="0 0 360 14"
       preserveAspectRatio="none"
-      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style={{
+        display: 'block',
+        width: '100%',
+        height: 14,
+        transform: flipped ? 'scaleY(-1)' : undefined,
+      }}
     >
       <path
-        d="M0,10 C10,0 20,20 30,10 C40,0 50,20 60,10 C70,0 80,20 90,10 C100,0 110,20 120,10 C130,0 140,20 150,10 C160,0 170,20 180,10 C190,0 200,20 210,10 C220,0 230,20 240,10 C250,0 260,20 270,10 C280,0 290,20 300,10 C310,0 320,20 330,10 C340,0 350,20 360,10 C370,0 380,20 390,10 C400,0 400,10 400,10 L400,20 L0,20 Z"
-        fill="#f5f0e4"
+        d="M0,0 L10,12 L20,0 L30,12 L40,0 L50,12 L60,0 L70,12 L80,0 L90,12 L100,0 L110,12 L120,0 L130,12 L140,0 L150,12 L160,0 L170,12 L180,0 L190,12 L200,0 L210,12 L220,0 L230,12 L240,0 L250,12 L260,0 L270,12 L280,0 L290,12 L300,0 L310,12 L320,0 L330,12 L340,0 L350,12 L360,0 L360,14 L0,14 Z"
+        fill="#fbf5dc"
       />
     </svg>
   );
 }
 
-/* ─── Single Ticket Card ────────────────────────────────────── */
-function TicketCard({ project, index }) {
-  const [flipped, setFlipped] = useState(false);
-  const cardRef = useRef(null);
-  const [visible, setVisible] = useState(false);
+/* ═══════════════════════════════════════════════════════════
+   MAIN COMPONENT
+   ═══════════════════════════════════════════════════════════ */
+export default function WorksSection() {
+  const sectionRef = useRef(null);
+  const ticketRefs = useRef([]);
+  const rafRef = useRef(null);
+  const [activeProject, setActiveProject] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const tick = () => {
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      const scrolled = window.scrollY - sectionTop;
+      const totalScrollable = section.offsetHeight - window.innerHeight;
+      const p = clamp(scrolled / totalScrollable, 0, 1);
+
+      /* Card Stacking Scroll Physics
+         Cards are anchored at top: 0 in the flex-stage.
+         They are horizontally centered with translateX(-50%).
+         Vertical offsets are driven by translateY.
+      */
+      const numCards = PROJECTS.length;
+      let curActive = 0;
+
+      for (let i = 0; i < numCards; i++) {
+        const el = ticketRefs.current[i];
+        if (!el) continue;
+
+        if (i === 0) {
+          // Base card: pinned, subtly offsets when stacked
+          const p1Progress = clamp((p - 0.22) / 0.32, 0, 1);
+          const ty = -14 * p1Progress;
+          el.style.transform = `translateX(-50%) translateY(${ty}px)`;
+          el.style.zIndex = 10;
+        } else {
+          // Subsequent cards rise from bottom to stack on top
+          const startP = 0.22 + (i - 1) * 0.36;
+          const endP = startP + 0.32;
+          const progress = clamp((p - startP) / (endP - startP), 0, 1);
+          const eased = easeOut(progress);
+
+          const ty = (1 - eased) * 105; // 105vh -> 0vh
+          el.style.transform = `translateX(-50%) translateY(${ty}vh)`;
+          el.style.zIndex = 10 + i * 5;
+
+          if (progress >= 0.5) {
+            curActive = i;
+          }
+        }
+      }
+
+      setActiveProject(curActive);
+    };
+
+    const onScroll = () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    tick();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
+  const proj = PROJECTS[activeProject];
+
   return (
-    <div
-      ref={cardRef}
-      className={`project-ticket-scene ${visible ? 'ticket-visible' : ''}`}
-      style={{ '--delay': `${index * 0.13}s` }}
-      onClick={() => setFlipped(f => !f)}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      role="button"
-      tabIndex={0}
-      aria-label={`View project: ${project.title}`}
-      onKeyDown={e => e.key === 'Enter' && setFlipped(f => !f)}
-    >
-      <div className={`ticket-flipper ${flipped ? 'is-flipped' : ''}`}>
+    <section id="works" ref={sectionRef} className="works-scroll-container">
+      <div className="works-sticky-frame">
+        <div className="works-blue-panel">
 
-        {/* ── FRONT ─────────────────────────────────────────── */}
-        <div className="ticket-face ticket-front">
-          <WavyEdge />
-          <div className="ticket-body">
-            <div className="ticket-meta-row">
-              <span className="ticket-category">{project.category}</span>
-              <span className="ticket-year">{project.year}</span>
-            </div>
-            <h3 className="ticket-title">{project.title}</h3>
-            <p className="ticket-subtitle">{project.subtitle}</p>
-            <div className="ticket-divider" />
-            <div className="ticket-role-label">Creative direction, end-to-end</div>
-            <div className="ticket-stat">{project.stat}</div>
-            <div className="ticket-deliverables">
-              {project.deliverables.map(d => (
-                <div key={d} className="ticket-deliverable-row">
-                  <span className="ticket-deliverable-name">{d}</span>
-                  <span className="ticket-check">✓</span>
-                </div>
-              ))}
-            </div>
-            <div className="ticket-cta-row">
-              <span className="ticket-cta-label">CASE STUDY</span>
-              <span className="ticket-cta-arrow">→</span>
-            </div>
+          {/* ── Center Header Block with Responsive Spacing ── */}
+          <div className="works-heading-block">
+            <h2 className="works-main-h2">
+              Things I have built,<br />owned, and shipped.
+            </h2>
+            <div className="works-section-label">Selected Work</div>
           </div>
-          <div className="ticket-barcode-zone">
-            <Barcode code={project.code} />
-            <span className="ticket-barcode-label">{project.code} · GD · {project.year}</span>
-          </div>
-          <WavyEdge flip />
-        </div>
 
-        {/* ── BACK ──────────────────────────────────────────── */}
-        <div className="ticket-face ticket-back">
-          <WavyEdge />
-          <div className="ticket-body ticket-back-body">
-            <div className="ticket-back-header">
-              <span className="ticket-back-cat">{project.category}</span>
-              <span className="ticket-back-code">{project.code}</span>
-            </div>
-            <div className="ticket-back-title-wrap">
-              <span className="ticket-back-subtitle">PROJECT DETAILS</span>
-              <h3 className="ticket-back-title">{project.title}</h3>
-            </div>
-            <div className="ticket-back-stat-row">
-              <div className="ticket-back-stat-box">
-                <span className="tbs-label">DURATION</span>
-                <span className="tbs-value">{project.duration}</span>
-              </div>
-              <div className="ticket-back-stat-box">
-                <span className="tbs-label">YEAR</span>
-                <span className="tbs-value">{project.year}</span>
-              </div>
-            </div>
-            <div className="ticket-back-deliverables">
-              {project.deliverables.map(d => (
-                <div key={d} className="tbd-row">
-                  <span className="tbd-dot" />
-                  <span className="tbd-text">{d}</span>
-                </div>
-              ))}
-            </div>
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ticket-back-cta"
-              onClick={e => e.stopPropagation()}
+          {/* ── Center Interactive Stage ─────────────────── */}
+          <div className="works-stage">
+
+            {/* Hover Side Elements (Left Title + Polaroids + Right Arrow) */}
+            <div
+              className={`works-hover-context ${isHovered ? 'is-active' : ''}`}
+              aria-hidden="true"
             >
-              View Case Study →
-            </a>
-          </div>
-          <div className="ticket-barcode-zone">
-            <Barcode code={project.code + 'BACK'} />
-            <span className="ticket-barcode-label">{project.code} · {project.year}</span>
-          </div>
-          <WavyEdge flip />
-        </div>
+              {/* Left Headline & Tagline */}
+              <div className="whc-left-text">
+                <h3 className="whc-headline">{proj.headline}</h3>
+                <p className="whc-subline">{proj.subline}</p>
+              </div>
 
-      </div>
-    </div>
-  );
-}
+              {/* Bottom-Left Polaroid Photo */}
+              <div className="whc-polaroid whc-polaroid-left">
+                <div className="whc-polaroid-inner">
+                  <img src={proj.leftImage} alt="" className="whc-polaroid-img" />
+                </div>
+              </div>
 
-/* ─── Main Section ──────────────────────────────────────────── */
-export default function WorksSection() {
-  const marqueeText = [
-    'ILLUSTRATION.', 'WEB DESIGN.', 'PACKAGING DESIGN.', 'BRANDING.', 'MOTION.', 'ART DIRECTION.'
-  ];
+              {/* Top-Right Polaroid Screenshot */}
+              <div className="whc-polaroid whc-polaroid-right">
+                <div className="whc-polaroid-inner">
+                  <img src={proj.rightImage} alt="" className="whc-polaroid-img" />
+                </div>
+              </div>
 
-  return (
-    <section id="works" className="works-typographic-section">
+              {/* Bottom-Right Hero-Yellow Arrow */}
+              <div className="whc-arrow-right">
+                <svg width="48" height="28" viewBox="0 0 48 28" fill="none">
+                  <path
+                    d="M32 2L44 14L32 26M42 14H4"
+                    stroke="#fde047"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
 
-      {/* Ghost heading */}
-      <div className="works-editorial-heading" aria-hidden="true">
-        <h2>(WORKS)</h2>
-      </div>
+            {/* Stacked Receipt Cards */}
+            {PROJECTS.map((p, idx) => (
+              <div
+                key={p.id}
+                ref={el => { ticketRefs.current[idx] = el; }}
+                className={`sw-receipt-card ${activeProject === idx ? 'sw-active-card' : ''}`}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <div className="sw-receipt-paper">
+                  {/* Top Serrated Edge */}
+                  <SerratedEdge />
 
-      {/* Diagonal marquee ribbon */}
-      <div className="diagonal-marquee-ribbon" aria-hidden="true">
-        <div className="marquee-track">
-          {Array(4).fill(marqueeText).flat().map((item, idx) => (
-            <span key={idx} className="marquee-item">
-              <span className="marquee-word">{item}</span>
-              <span className="marquee-star">★</span>
-            </span>
-          ))}
-        </div>
-      </div>
+                  {/* Receipt Content Body */}
+                  <div className="sw-receipt-body">
+                    <h3 className="sw-r-title">
+                      {p.title.split('\n').map((line, li, arr) => (
+                        <React.Fragment key={li}>
+                          {line}
+                          {li < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </h3>
+                    <div className="sw-r-version">{p.version}</div>
 
-      {/* Section label */}
-      <div className="works-section-label">
-        <span>Selected Work</span>
-      </div>
+                    <div className="sw-r-divider" />
 
-      {/* Ticket row */}
-      <div className="ticket-carousel-row">
-        {PROJECTS.map((proj, i) => (
-          <TicketCard key={proj.id} project={proj} index={i} />
-        ))}
-      </div>
+                    <div className="sw-r-role">{p.roleLabel}</div>
 
-      {/* Hint */}
-      <p className="ticket-hint">hover or tap a ticket to inspect</p>
+                    <div className="sw-r-stat">{p.stat}</div>
+
+                    <div className="sw-r-delivs">
+                      {p.deliverables.map(d => (
+                        <div key={d} className="sw-r-deliv-row">
+                          <span className="sw-r-deliv-name">{d}</span>
+                          <span className="sw-r-check">&#10003;</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <a
+                      href={p.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="sw-r-cta"
+                      onClick={e => e.stopPropagation()}
+                    >
+                      CASE STUDY &#8594;
+                    </a>
+                  </div>
+
+                  {/* Barcode Footer */}
+                  <div className="sw-receipt-barcode-box">
+                    <Barcode code={p.code} />
+                    <div className="sw-r-code-label">{p.code}</div>
+                  </div>
+
+                  {/* Bottom Serrated Edge */}
+                  <SerratedEdge flipped />
+                </div>
+              </div>
+            ))}
+
+          </div>{/* /works-stage */}
+
+        </div>{/* /works-blue-panel */}
+      </div>{/* /works-sticky-frame */}
     </section>
   );
 }
